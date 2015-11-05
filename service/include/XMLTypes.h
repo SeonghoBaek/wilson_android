@@ -11,6 +11,7 @@
 #include "Log.h"
 #include <stdlib.h>
 #include <string.h>
+#include <libxml/parser.h>
 
 #define XML_MAX_LENGTH 1024
 #define XML_MAX_TVC_LENGTH 256
@@ -19,6 +20,8 @@
 #define XML_LENGTH_NODE_MANIFEST 512
 #define XML_LENGTH_NODE_IP 16
 #define PROC_ADDR_LENGTH 16
+#define XML_IP_LENGTH 16
+#define XML_PORT_LENGTH 5
 
 #define XML_ARGUMENT_LENGTH 128
 
@@ -180,6 +183,8 @@ class NBUSXML : public IXML
 		int 	mSyncId;
 		char	mProcAddr[PROC_ADDR_LENGTH];
 		char 	mNodeName[XML_LENGTH_NODE_NAMESPACE+1];
+		char 	mIp[XML_IP_LENGTH];
+        int	    mPort;
 		int		mNumOfNode;
 		NodeXML *mpNodeList;
 
@@ -235,6 +240,20 @@ class NBUSXML : public IXML
 		}
 
 		char* getNodeName() {return this->mNodeName;}
+
+		void setIp(const char *pIp)
+		{
+			strncpy(mIp, pIp, XML_IP_LENGTH);
+		}
+
+		char* getIp() {return this->mIp;}
+
+		void setPort(int port)
+		{
+            mPort = port;
+		}
+
+		int getPort() {return this->mPort;}
 
 		char* toXML();
 };

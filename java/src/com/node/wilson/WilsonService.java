@@ -85,7 +85,11 @@ public class WilsonService extends Service {
 
         String registerXml = WilsonXML.XmlHeader;
 
-        registerXml += "<nodebus type=\"" + WilsonXML.BUS_EVENT_TYPE.NBUS_TYPE_REQUEST + "\" id=\"" + WilsonXML.BUS_COMMAND_ID.NBUS_CMD_REGISTER + "\" node=\"" + NODE_NAME + "\"/>";
+        String ip = "10.0.0.4";
+        String port = "8088";
+
+        registerXml += "<nodebus type=\"" + WilsonXML.BUS_EVENT_TYPE.NBUS_TYPE_REQUEST + "\" id=\"" + WilsonXML.BUS_COMMAND_ID.NBUS_CMD_REGISTER +
+                "\" ip=\"" + ip + "\" port=\"" + port + "\"/>";
 
         Logi.println(TAG_NAME, "Register: " + registerXml);
 

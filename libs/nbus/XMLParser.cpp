@@ -112,6 +112,8 @@ IXML* XMLParser::parseXML(const char *xml, int length)
 
 		char* pType = (char *)xmlGetProp(rootElement, (xmlChar *)"type");
 		char* pId = (char *)xmlGetProp(rootElement, (xmlChar *)"id");
+		char* pIp = (char *)xmlGetProp(rootElement, (xmlChar *)"ip");
+		char* pPort = (char *)xmlGetProp(rootElement, (xmlChar *)"port");
 		char* pNode = (char *)xmlGetProp(rootElement, (xmlChar *)"node");
 		char* pSyncId = (char *)xmlGetProp(rootElement, (xmlChar *)"syncid");
 		char* pBuffStr = (char *)xmlGetProp(rootElement, (xmlChar *)"buffer");
@@ -128,6 +130,20 @@ IXML* XMLParser::parseXML(const char *xml, int length)
 			pStr = this->trimwhiteSpace(pId);
 			pBusXml->setId(atoi(pStr));
 			xmlFree(pId);
+		}
+
+		if (pIp)
+		{
+			pStr = this->trimwhiteSpace(pIp);
+			pBusXml->setIp(pStr);
+			xmlFree(pIp);
+		}
+
+		if (pPort)
+		{
+			pStr = this->trimwhiteSpace(pPort);
+			pBusXml->setPort(atoi(pStr));
+			xmlFree(pPort);
 		}
 
 		if (pNode)

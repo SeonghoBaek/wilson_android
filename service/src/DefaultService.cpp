@@ -471,6 +471,9 @@ void DefaultService::processMessage()
                            {
                                // Need to check.
                                 LOGI("Register to Server\n");
+
+                                this->mpServerAddress = pBusXml->getIp();
+                                this->mServerPort = pBusXml->getPort();
                                
                                 if (this->mNodePort.connect(this->mpServerAddress, this->mServerPort) > 0)
                                 {

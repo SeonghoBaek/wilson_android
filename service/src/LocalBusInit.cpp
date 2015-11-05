@@ -1,7 +1,6 @@
 /** 
 *
 *  @author		Seongho Baek
-*  @date		2014.08.12
 */
 
 #include "Log.h"
@@ -20,18 +19,20 @@
 
 int main(int argc, char** argv)
 {
+	/*
 	if (argc < 2)
 	{
 		LOGI("usage: %s <server address> <port>\n", argv[0]);
 
 		return -1;
 	}
+	 */
 
 	// Create NodeBus Service.
 	LOGI("Create DefaultService\n");
 	DefaultService *NodeBusLocalService = new DefaultService();
 	NodeBusLocalService->init();
-	NodeBusLocalService->setGlobalServerAddress(argv[1], atoi(argv[2])); // Weak.
+	//NodeBusLocalService->setGlobalServerAddress(argv[1], atoi(argv[2])); // Weak.
 
 	//LOGI("Start %s:%d\n", argv[1], atoi(argv[2]));
 	NodeBusLocalService->run();
