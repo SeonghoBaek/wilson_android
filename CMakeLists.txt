@@ -1,0 +1,10 @@
+cmake_minimum_required(VERSION 3.3)
+project(wilson)
+
+set(ANDROID_ROOT ${CMAKE_SOURCE_DIR}/../..)
+include_directories(${ANDROID_ROOT}/system/core/include)
+include_directories(${ANDROID_ROOT}/external/libxml2/include)
+include_directories(${ANDROID_ROOT}/external/icu4c/common)
+include(${CMAKE_SOURCE_DIR}/service/CMakeLists.txt)
+include(${CMAKE_SOURCE_DIR}/libs/CMakeLists.txt)
+include(${CMAKE_SOURCE_DIR}/node/CMakeLists.txt)
