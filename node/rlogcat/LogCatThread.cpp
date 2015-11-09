@@ -51,14 +51,14 @@ bool LogCatThread::sendLog(int bytes)
 
     EventXML eventXml;
 
-    LOGI("LogcatThread sendLog: %d", bytes);
+    //LOGI("LogcatThread sendLog: %d", bytes);
     eventXml.setType(EVT_KEYWORD(LOG));
     eventXml.setFormat(LOG_KEYWORD(TXT));
     eventXml.setLength((unsigned int)length);
 
     char *header = eventXml.toXML();
 
-    LOGI("LogCatThreadd sendLog: %s", header);
+    //LOGI("LogCatThread sendLog: %s", header);
 
     packet.copyHeader(header,(int)strlen(header));
     packet.copyData(raw, bytes);

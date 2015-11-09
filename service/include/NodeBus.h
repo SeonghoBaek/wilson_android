@@ -240,7 +240,7 @@ class NodeAdapter
 							}
 							else
 							{
-								LOGI("Custom Message");
+								//LOGI("Custom Message");
 							}
 						}
 						else if (pItem->mType == GLOBAL_MESSAGE)

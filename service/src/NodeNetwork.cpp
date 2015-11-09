@@ -208,7 +208,7 @@ int NodeNetwork::setupLocalNode(const char* names, INode* pINode)
 		return -1;
 	}
 
-	LOGI("Local Socket: %d %s\n", localSocket, names);
+	//LOGI("Local Socket: %d %s\n", localSocket, names);
 
 	if (bindLocalSocketToName(localSocket, names) < 0)
 	{
@@ -219,7 +219,7 @@ int NodeNetwork::setupLocalNode(const char* names, INode* pINode)
 		return -1;
 	}
 
-	LOGI("Binding Local Socket\n");
+	//LOGI("Binding Local Socket\n");
 
 	if (listenOnSocket(localSocket, 4) < 0)
 	{
@@ -240,7 +240,7 @@ int NodeNetwork::setupLocalNode(const char* names, INode* pINode)
 		// Wait client.
 		int clientSocket = acceptOnSocket(localSocket, NULL);
         
-        LOGI("Accept local client");
+        //LOGI("Accept local client");
 
 		if (clientSocket < 0)
 		{
@@ -253,7 +253,7 @@ int NodeNetwork::setupLocalNode(const char* names, INode* pINode)
 
 		ssize_t recvSize = read(clientSocket, buffer, sizeof(unsigned int));
         
-        LOGI("recvSize: %d", (int)recvSize);
+        //LOGI("recvSize: %d", (int)recvSize);
 
 		if (recvSize <= 0)
 		{
@@ -274,17 +274,17 @@ int NodeNetwork::setupLocalNode(const char* names, INode* pINode)
 			break;
 		}
         
-        LOGI("MSG Type: %d", msgType);
+        //LOGI("MSG Type: %d", msgType);
 
     	recvSize = read(clientSocket, buffer, sizeof(unsigned int));
 
-    	LOGI("recvSize: %d", (int)recvSize);
+    	//LOGI("recvSize: %d", (int)recvSize);
 
     	if (recvSize > 0)
     	{
     		int length = *(int *)buffer;
     		
-            LOGI("XML Length: %d", length);
+            //LOGI("XML Length: %d", length);
     		
             char *tempBuff = new char[length+1];
     		int sent = 0;
