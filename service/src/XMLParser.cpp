@@ -317,6 +317,8 @@ IXML* XMLParser::parseXML(const char *xml, int length)
 				}
 				else pEventXml->setID(atoi(pStr));  // Testcase ID
 
+				break;
+
 			}
 			while(1);
 
@@ -332,9 +334,9 @@ IXML* XMLParser::parseXML(const char *xml, int length)
 			if (xmlStrcmp(curNode->name, (const xmlChar *)"command") == 0)
 			{
 				CommandXML* pCmdXml = this->parseCommandXml(doc, curNode);
-				
+
                 pEventXml->setCommandXML(pCmdXml);
-                
+
                 break;
 			}
 		}
@@ -580,9 +582,9 @@ void NBUSXML::setSharedBufferAddr(char *pAddr)
 char* NBUSXML::getSharedBufferAddr()
 {
     char* pAddr = NULL;
-    
+
     sscanf(this->mProcAddr, "%p", (void **)&pAddr);
-	
+
 	return pAddr;
 }
 
@@ -679,12 +681,12 @@ char *NBUSXML::toXML()
 
 					NodeXML *pNodeXml = NULL;
                      char* pStr = NULL;
-                    
+
 					LIST_FOR_EACH(pNodeXml, this->mpNodeList)
 					{
                          pStr = pNodeXml->toXML();
 						strcat(pStrXml, pStr);
-                        
+
                         delete [] pStr;
 					}
 
@@ -707,7 +709,7 @@ char *NodeXML::toXML()
 {
     char* pNodeXml = new char[NODE_NAME_LENGTH+14];
     pNodeXml[0] = 0;
-    
+
     sprintf(pNodeXml,"<node>%s</node>",this->mName);
 	return pNodeXml;
 }

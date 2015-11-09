@@ -8,7 +8,7 @@ LOCAL_C_INCLUDES := \
                  $(LOCAL_PATH) \
                  external/icu4c/common \
                  external/libxml2/include \
-                 vendor/wilson/include
+                 external/wilson_android/include
 
 LOCAL_SRC_FILES := LogCatThread.cpp \
                    RedirectLogCat.cpp

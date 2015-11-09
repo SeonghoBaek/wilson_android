@@ -21,6 +21,8 @@ public class WilsonClient extends IWilsonRemoteListener.Stub implements IWilsonC
     private Boolean mConnected = false;
     private IWilsonService mBinder = null;
     private IWilsonListener mListener;
+    private String mServerIP = null;
+    private String mServerPort = null;
 
     private ServiceConnection mServiceConnection = new ServiceConnection() {
         @Override
@@ -34,6 +36,8 @@ public class WilsonClient extends IWilsonRemoteListener.Stub implements IWilsonC
                 synchronized (WilsonClient.class) {
                     mConnected = true;
                 }
+
+                WilsonClient.this.mBinder.register(mServerIP, mServerPort);
 
                 if (mListener != null) {
                     mListener.onMessageArrived("Wilson Service Connected");
@@ -74,6 +78,32 @@ public class WilsonClient extends IWilsonRemoteListener.Stub implements IWilsonC
 
             return 0;
         }
+
+        Intent intent = new Intent(this.mContext, com.node.wilson.WilsonService.class);
+
+        Logd.println(TAG_NAME, "Service Binding...");
+        if (this.mContext.bindService(intent, mServiceConnection, Context.BIND_AUTO_CREATE) == false) {
+            Loge.println(TAG_NAME, "Bind Failure");
+
+            return -1;
+        } else {
+            Logd.println(TAG_NAME, "Bind OK");
+        }
+
+        return 0;
+    }
+
+    @Override
+    public int connect(String ip, String port) {
+        // IWilsonClient
+        if (this.mConnected == true) {
+            Logd.println(TAG_NAME, "Already Connected");
+
+            return 0;
+        }
+
+        mServerIP = ip;
+        mServerPort = port;
 
         Intent intent = new Intent(this.mContext, com.node.wilson.WilsonService.class);
 

@@ -17,58 +17,58 @@
 #include <string.h>
 
 char *CMD_STR_TABLE[CMD_TYPE_NONE] =
-{
-	(char*)"STAY",
-	(char*)"INFO",
-	(char*)"LOG",
-	(char*)"LOGOFF",
-	(char*)"IMG",
-	(char*)"START",
-	(char*)"STOP",
-	(char*)"PAUSE",
-	(char*)"WAIT",
-	(char*)"RESUME",
-	(char*)"EPK",
-	(char*)"LUA",
-	(char*)"FILE",
-	(char*)"KEY",
-	(char*)"RPC",
-	(char*)"ARPC",
-	(char*)"TC",
-	(char*)"SH",
-	(char*)"CFG",
-	(char*)"REBOOT",
-	(char*)"EXIT",
-	(char*)"COMPLETE"
-};
+		{
+				(char*)"STAY",
+				(char*)"INFO",
+				(char*)"LOG",
+				(char*)"LOGOFF",
+				(char*)"IMG",
+				(char*)"START",
+				(char*)"STOP",
+				(char*)"PAUSE",
+				(char*)"WAIT",
+				(char*)"RESUME",
+				(char*)"EPK",
+				(char*)"LUA",
+				(char*)"FILE",
+				(char*)"KEY",
+				(char*)"RPC",
+				(char*)"ARPC",
+				(char*)"TC",
+				(char*)"SH",
+				(char*)"CFG",
+				(char*)"REBOOT",
+				(char*)"EXIT",
+				(char*)"COMPLETE"
+		};
 
 char *EVT_STR_TABLE[EVT_TYPE_NONE] =
-{
-	(char*)"REGOK",
-	(char*)"REGFAIL",
-	(char *)"READY",
-	(char*)"LOG",
-	(char*)"ERROR",
-	(char*)"IMG",
-	(char*)"TC",
-	(char*)"CMD",
-	(char*)"INFO"
-};
+		{
+				(char*)"REGOK",
+				(char*)"REGFAIL",
+				(char *)"READY",
+				(char*)"LOG",
+				(char*)"ERROR",
+				(char*)"IMG",
+				(char*)"TC",
+				(char*)"CMD",
+				(char*)"INFO"
+		};
 
 char *FORMAT_STR_TABLE[LOG_FORMAT_NONE] =
-{
-	(char*)"JSON",
-	(char*)"TXT",
-	(char*)"XML",
-	(char*)"JPG",
-	(char*)"BIN"
-};
+		{
+				(char*)"JSON",
+				(char*)"TXT",
+				(char*)"XML",
+				(char*)"JPG",
+				(char*)"BIN"
+		};
 
 char *ERROR_STR_TABLE[ERROR_ID_NONE] =
-{
-	(char*)"SYS",
-	(char*)"CMD"
-};
+		{
+				(char*)"SYS",
+				(char*)"CMD"
+		};
 
 XMLParser* XMLParser::getInstance()
 {
@@ -108,7 +108,7 @@ IXML* XMLParser::parseXML(const char *xml, int length)
 	if ( xmlStrcmp(rootElement->name, (const xmlChar *)"nodebus") == 0)
 	{
 		NBUSXML *pBusXml = new NBUSXML;
-        pXML = pBusXml;
+		pXML = pBusXml;
 
 		char* pType = (char *)xmlGetProp(rootElement, (xmlChar *)"type");
 		char* pId = (char *)xmlGetProp(rootElement, (xmlChar *)"id");
@@ -163,7 +163,7 @@ IXML* XMLParser::parseXML(const char *xml, int length)
 		if (pBuffStr)
 		{
 			pStr = this->trimwhiteSpace(pBuffStr);
-            //LOGI("Parsed Buff Addr Str:%s", pStr);
+			//LOGI("Parsed Buff Addr Str:%s", pStr);
 			pBusXml->setSharedBufferAddrStr(pStr);
 			xmlFree(pBuffStr);
 		}
@@ -189,7 +189,7 @@ IXML* XMLParser::parseXML(const char *xml, int length)
 	else if ( xmlStrcmp(rootElement->name, (const xmlChar *)"event") == 0)
 	{
 		EventXML *pEventXml = new EventXML;
-        pXML = pEventXml;
+		pXML = pEventXml;
 
 		char* pTypeId = (char *)xmlGetProp(rootElement, (xmlChar *)"type");
 		char* pFormat = (char *)xmlGetProp(rootElement, (xmlChar *)"format");
@@ -317,6 +317,8 @@ IXML* XMLParser::parseXML(const char *xml, int length)
 				}
 				else pEventXml->setID(atoi(pStr));  // Testcase ID
 
+				break;
+
 			}
 			while(1);
 
@@ -332,10 +334,10 @@ IXML* XMLParser::parseXML(const char *xml, int length)
 			if (xmlStrcmp(curNode->name, (const xmlChar *)"command") == 0)
 			{
 				CommandXML* pCmdXml = this->parseCommandXml(doc, curNode);
-				
-                pEventXml->setCommandXML(pCmdXml);
-                
-                break;
+
+				pEventXml->setCommandXML(pCmdXml);
+
+				break;
 			}
 		}
 
@@ -344,7 +346,7 @@ IXML* XMLParser::parseXML(const char *xml, int length)
 	else if ( xmlStrcmp(rootElement->name, (const xmlChar *)"command") == 0)
 	{
 		CommandXML *pCmdXml = this->parseCommandXml(doc, rootElement);
-        pXML = pCmdXml;
+		pXML = pCmdXml;
 	}
 	else if ( xmlStrcmp(rootElement->name, (const xmlChar *)"testcase") == 0)
 	{
@@ -574,15 +576,15 @@ CommandXML* XMLParser::parseCommandXml(xmlDoc* pDoc, xmlNode* pXmlNode)
 
 void NBUSXML::setSharedBufferAddr(char *pAddr)
 {
-    sprintf(this->mProcAddr, "%p", pAddr);
+	sprintf(this->mProcAddr, "%p", pAddr);
 }
 
 char* NBUSXML::getSharedBufferAddr()
 {
-    char* pAddr = NULL;
-    
-    sscanf(this->mProcAddr, "%p", (void **)&pAddr);
-	
+	char* pAddr = NULL;
+
+	sscanf(this->mProcAddr, "%p", (void **)&pAddr);
+
 	return pAddr;
 }
 
@@ -605,30 +607,30 @@ char *NBUSXML::toXML()
 					sprintf(pStrXml, "%s<nodebus type=\"%d\" id=\"%d\" node=\"%s\"/>",
 							(char *)XML_HEADER,this->mType, this->mId, this->mNodeName);
 				}
-				break;
+					break;
 				case NBUS_EVENT_NODE_DROPPED:
 				{
 					sprintf(pStrXml, "%s<nodebus type=\"%d\" id=\"%d\" node=\"%s\"/>",
 							(char *)XML_HEADER,this->mType, this->mId, this->mNodeName);
 				}
-				break;
+					break;
 				case NBUS_EVENT_NETWORK_DETACHED:
 				{
 					sprintf(pStrXml, "%s<nodebus type=\"%d\" id=\"%d\"/>",
 							(char *)XML_HEADER,this->mType, this->mId);
 				}
-				break;
-                case NBUS_EVENT_SET_DEFAULT_NODE:
-                {
-                    sprintf(pStrXml, "%s<nodebus type=\"%d\" id=\"%d\" node=\"%s\"/>",
+					break;
+				case NBUS_EVENT_SET_DEFAULT_NODE:
+				{
+					sprintf(pStrXml, "%s<nodebus type=\"%d\" id=\"%d\" node=\"%s\"/>",
 							(char *)XML_HEADER,this->mType, this->mId, this->mNodeName);
-                }
-                break;
+				}
+					break;
 				default:
-				break;
+					break;
 			}
 		}
-		break;
+			break;
 		case NBUS_TYPE_REQUEST:
 		{
 			switch (this->mId)
@@ -644,24 +646,24 @@ char *NBUSXML::toXML()
 							this->mProcAddr
 					);
 				}
-				break;
+					break;
 				case NBUS_CMD_JOIN:
 				{
 					sprintf(pStrXml, "%s<nodebus type=\"%d\" id=\"%d\" node=\"%s\"/>",
 							(char *)XML_HEADER,this->mType, this->mId, this->mNodeName);
 				}
-				break;
+					break;
 				case NBUS_CMD_DROP:
 				{
 					sprintf(pStrXml, "%s<nodebus type=\"%d\" id=\"%d\" node=\"%s\"/>",
 							(char *)XML_HEADER,this->mType, this->mId, this->mNodeName);
 				}
-				break;
+					break;
 				default:
-				break;
+					break;
 			}
 		}
-		break;
+			break;
 		case NBUS_TYPE_RESPONSE:
 		{
 			switch (this->mId)
@@ -678,26 +680,26 @@ char *NBUSXML::toXML()
 					);
 
 					NodeXML *pNodeXml = NULL;
-                     char* pStr = NULL;
-                    
+					char* pStr = NULL;
+
 					LIST_FOR_EACH(pNodeXml, this->mpNodeList)
 					{
-                         pStr = pNodeXml->toXML();
+						pStr = pNodeXml->toXML();
 						strcat(pStrXml, pStr);
-                        
-                        delete [] pStr;
+
+						delete [] pStr;
 					}
 
 					strcat(pStrXml, "</nodebus>");
 				}
-				break;
+					break;
 				default:
-				break;
+					break;
 			}
 		}
-		break;
+			break;
 		default:
-		break;
+			break;
 	}
 
 	return pStrXml;
@@ -705,10 +707,10 @@ char *NBUSXML::toXML()
 
 char *NodeXML::toXML()
 {
-    char* pNodeXml = new char[NODE_NAME_LENGTH+14];
-    pNodeXml[0] = 0;
-    
-    sprintf(pNodeXml,"<node>%s</node>",this->mName);
+	char* pNodeXml = new char[NODE_NAME_LENGTH+14];
+	pNodeXml[0] = 0;
+
+	sprintf(pNodeXml,"<node>%s</node>",this->mName);
 	return pNodeXml;
 }
 
@@ -728,41 +730,41 @@ char* EventXML::toXML()
 		{
 			sprintf(pStrXml, "%s<event type=\"%s\"/>", (char *)XML_HEADER, EVT_STR_TABLE[this->mType]);
 		}
-		break;
+			break;
 		case EVT_TYPE_REGFAIL:
 		{
 			sprintf(pStrXml, "%s<event type=\"%s\"/>", (char *)XML_HEADER, EVT_STR_TABLE[this->mType]);
 		}
-		break;
+			break;
 		case EVT_TYPE_READY:
 		{
 			sprintf(pStrXml, "%s<event type=\"%s\"/>", (char *)XML_HEADER, EVT_STR_TABLE[this->mType]);
 		}
-		break;
+			break;
 		case EVT_TYPE_LOG:
 		{
 			sprintf(pStrXml, "%s<event type=\"%s\" format=\"%s\" length=\"%d\"/>",
 					(char *)XML_HEADER, EVT_STR_TABLE[this->mType], FORMAT_STR_TABLE[this->mFormat], this->mLength);
 		}
-		break;
+			break;
 		case EVT_TYPE_ERROR:
 		{
 			sprintf(pStrXml, "%s<event type=\"%s\" id=\"%s\"/>",
 					(char *)XML_HEADER, EVT_STR_TABLE[this->mType], ERROR_STR_TABLE[this->mID]);
 		}
-		break;
+			break;
 		case EVT_TYPE_IMG:
 		{
 			sprintf(pStrXml, "%s<event type=\"%s\" format=\"%s\" length=\"%d\"/>",
 					(char *)XML_HEADER, EVT_STR_TABLE[this->mType], FORMAT_STR_TABLE[this->mFormat], this->mLength);
 		}
-		break;
+			break;
 		case EVT_TYPE_TC:
 		{
 			sprintf(pStrXml, "%s<event type=\"%s\" id=\"%s\" res=\"%d\"/>",
 					(char *)XML_HEADER, EVT_STR_TABLE[this->mType], ERROR_STR_TABLE[this->mID], this->mRes);
 		}
-		break;
+			break;
 		case EVT_TYPE_CMD:
 		{
 			sprintf(pStrXml, "%s<event type=\"%s\" res=\"%d\">", (char *)XML_HEADER, EVT_STR_TABLE[this->mType], this->mRes);
@@ -774,15 +776,15 @@ char* EventXML::toXML()
 
 			strcat(pStrXml, (char *)"</event>");
 		}
-		break;
+			break;
 		case EVT_TYPE_INFO:
 		{
 			sprintf(pStrXml, "%s<event type=\"%s\" format=\"%s\" length=\"%d\"/>",
 					(char *)XML_HEADER, EVT_STR_TABLE[this->mType], FORMAT_STR_TABLE[this->mFormat], this->mLength);
 		}
-		break;
+			break;
 		default:
-		break;
+			break;
 	}
 
 	return pStrXml;
