@@ -20,6 +20,7 @@
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <sys/un.h>
+#include <sys/wait.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <stdlib.h>
@@ -523,8 +524,59 @@ void DefaultService::processMessage()
                                
                            }
                            break;
-							default:
-							break;
+                           case NBUS_CMD_SAVE_USB:
+                           {
+                               int done = 17;
+
+                               LOGI("Received NBUS_CMD_SAVE_USB");
+
+                               // Create logger node.
+
+                               pid_t childPid = -1;
+
+                               if ( (childPid = fork()) < 0 )
+                               {
+                                   LOGE("Fork bugreport node failure");
+                               }
+                               else if (childPid == 0) // child
+                               {
+                                   char *eargv[] = {"bugreport", ">", "/storage/usb0/bugreport.log", NULL};
+
+                                   FILE *testFile = fopen("/storage/usb0/b.log", "w");
+
+                                   if (testFile == NULL)
+                                   {
+                                       done = 16;
+
+                                       exit(0);
+                                   }
+                                   else
+                                   {
+                                       fclose(testFile);
+                                       unlink("/storage/usb0/b.log");
+                                       
+                                       if (execvp("bugreport", eargv) == -1)
+                                       {
+                                           LOGE("bugreport exec failed");
+                                       }
+                                   }
+                               }
+                               else  // parent
+                               {
+								   int status = -1;
+
+								   waitpid(childPid, &status, WUNTRACED);
+
+                                   this->cast("node.wilson", &done, sizeof(int));
+
+                                   LOGI("Ready to send log");
+                               }
+
+
+                           }
+                           break;
+                           default:
+                           break;
 						}
 
 					}
