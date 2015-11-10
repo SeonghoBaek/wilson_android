@@ -85,7 +85,7 @@ public class Main extends Activity {
 
         saveBtn.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
-
+                mWilsonClient.saveToUSB();
             }
         });
     }

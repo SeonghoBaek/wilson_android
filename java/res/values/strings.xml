@@ -6,7 +6,7 @@
     <string name="connect">Connect to Wilson Server</string>
     <string name="serverIP">Server IP</string>
     <string name="serverPort">Server Port</string>
-    <string name="ip">10.0.0.4</string>
+    <string name="ip">14.63.73.40</string>
     <string name="port">8088</string>
     <string name="save">Save bugreport to USB</string>
 </resources>

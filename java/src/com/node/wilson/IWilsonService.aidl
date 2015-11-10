@@ -7,4 +7,5 @@ interface IWilsonService {
     int removeListener(IWilsonRemoteListener l);
     int send(String data);
     int register(String ip, String port);
+    int saveToUSB();
 }

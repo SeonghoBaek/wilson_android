@@ -231,6 +231,7 @@
           <root url="file://$MODULE_DIR$/libs/nbus" />
           <root url="file://$MODULE_DIR$/node/rlogcat" />
           <root url="file://$MODULE_DIR$/service/include" />
+          <root url="file://$MODULE_DIR$/../../kernel/include" />
           <root url="file://$MODULE_DIR$/../../system/core/include" />
           <root url="file:///usr/include" />
         </CLASSES>
@@ -396,6 +397,7 @@
           <root url="file://$MODULE_DIR$/libs/nbus" />
           <root url="file://$MODULE_DIR$/node/rlogcat" />
           <root url="file://$MODULE_DIR$/service/include" />
+          <root url="file://$MODULE_DIR$/../../kernel/include" />
           <root url="file://$MODULE_DIR$/../../system/core/include" />
           <root url="file:///usr/include" />
         </SOURCES>

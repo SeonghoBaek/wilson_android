@@ -3,6 +3,7 @@ package com.ipc;
 import android.net.LocalServerSocket;
 import android.net.LocalSocket;
 import com.util.log.Loge;
+import com.util.log.Logi;
 
 import java.io.*;
 
@@ -76,6 +77,8 @@ public class DomainBridgeServer {
 
                         br.close();
                         receiver.close();
+
+                        Logi.println(getClass().getName(), "Received: " + json);
 
                         if (json.equals("stop")) {
                             server.close();

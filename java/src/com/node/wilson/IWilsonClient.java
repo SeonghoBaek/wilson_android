@@ -8,4 +8,5 @@ public interface IWilsonClient {
     int connect(String ip, String port);
     int disconnect();
     int send(String data);
+    int saveToUSB();
 }

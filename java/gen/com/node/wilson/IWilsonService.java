@@ -2,7 +2,7 @@
 
 /*
  * This file is auto-generated.  DO NOT MODIFY.
- * Original file: /Volumes/android/android_avn_kitkat/external/wilson_android/java/src/com/node/wilson/IWilsonService.aidl
+ * Original file: /Volumes/major/workspace/android_avn_kitkat/external/wilson/java/src/com/node/wilson/IWilsonService.aidl
  */
 package com.node.wilson;
 public interface IWilsonService extends android.os.IInterface
@@ -82,6 +82,14 @@ _arg0 = data.readString();
 java.lang.String _arg1;
 _arg1 = data.readString();
 int _result = this.register(_arg0, _arg1);
+reply.writeNoException();
+reply.writeInt(_result);
+return true;
+}
+case TRANSACTION_saveToUSB:
+{
+data.enforceInterface(DESCRIPTOR);
+int _result = this.saveToUSB();
 reply.writeNoException();
 reply.writeInt(_result);
 return true;
@@ -177,14 +185,33 @@ _data.recycle();
 }
 return _result;
 }
+@Override public int saveToUSB() throws android.os.RemoteException
+{
+android.os.Parcel _data = android.os.Parcel.obtain();
+android.os.Parcel _reply = android.os.Parcel.obtain();
+int _result;
+try {
+_data.writeInterfaceToken(DESCRIPTOR);
+mRemote.transact(Stub.TRANSACTION_saveToUSB, _data, _reply, 0);
+_reply.readException();
+_result = _reply.readInt();
+}
+finally {
+_reply.recycle();
+_data.recycle();
+}
+return _result;
+}
 }
 static final int TRANSACTION_addListener = (android.os.IBinder.FIRST_CALL_TRANSACTION + 0);
 static final int TRANSACTION_removeListener = (android.os.IBinder.FIRST_CALL_TRANSACTION + 1);
 static final int TRANSACTION_send = (android.os.IBinder.FIRST_CALL_TRANSACTION + 2);
 static final int TRANSACTION_register = (android.os.IBinder.FIRST_CALL_TRANSACTION + 3);
+static final int TRANSACTION_saveToUSB = (android.os.IBinder.FIRST_CALL_TRANSACTION + 4);
 }
 public int addListener(com.node.wilson.IWilsonRemoteListener l) throws android.os.RemoteException;
 public int removeListener(com.node.wilson.IWilsonRemoteListener l) throws android.os.RemoteException;
 public int send(java.lang.String data) throws android.os.RemoteException;
 public int register(java.lang.String ip, java.lang.String port) throws android.os.RemoteException;
+public int saveToUSB() throws android.os.RemoteException;
 }

@@ -80,6 +80,28 @@ public class WilsonService extends Service {
         public int send(String data) throws RemoteException {
             return 0;
         }
+
+        @Override
+        public int saveToUSB() throws RemoteException {
+            String registerXml = WilsonXML.XmlHeader;
+
+            registerXml += "<nodebus type=\"" + WilsonXML.BUS_EVENT_TYPE.NBUS_TYPE_REQUEST + "\" id=\"" + WilsonXML.BUS_COMMAND_ID.NBUS_CMD_SAVE_USB + "\"/>";
+
+            Logi.println(TAG_NAME, "Save To USB: " + registerXml);
+
+            byte[] typeBytes = ByteReorder.toCBytesArray(WilsonXML.BUS_EVENT_TYPE.NBUS_TYPE_REQUEST);
+            byte[] registerXMLBytes = registerXml.getBytes();
+            byte[] lengthBytes = ByteReorder.toCBytesArray(registerXMLBytes.length);
+            byte[] byteXML = new byte[typeBytes.length + lengthBytes.length + registerXml.length()];
+
+            System.arraycopy(typeBytes, 0, byteXML, 0, typeBytes.length);
+            System.arraycopy(lengthBytes, 0, byteXML, typeBytes.length, lengthBytes.length);
+            System.arraycopy(registerXMLBytes, 0, byteXML, typeBytes.length + lengthBytes.length, registerXMLBytes.length);
+
+            mBridgeClient.sendMessage(byteXML);
+
+            return 0;
+        }
     };
 
     public IBinder onBind(Intent intent) {
