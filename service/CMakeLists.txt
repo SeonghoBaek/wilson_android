@@ -43,7 +43,8 @@ set(HEADER_FILES
         ${NODEBUS}/include/Types.h
         ${NODEBUS}/include/XMLParser.h
         ${NODEBUS}/include/XMLTypes.h
-        ${NODEBUS}/include/DefaultNodeCallback.h)
+        ${NODEBUS}/include/DefaultNodeCallback.h
+        ${NODEBUS}/include/Message.h)
 
 add_executable(nodebus_client ${CLIENT_SOURCE_FILES} ${HEADER_FILES})
 

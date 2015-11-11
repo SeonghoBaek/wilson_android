@@ -4,6 +4,8 @@ import android.net.LocalServerSocket;
 import android.net.LocalSocket;
 import com.util.log.Loge;
 import com.util.log.Logi;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.*;
 
@@ -11,7 +13,7 @@ import java.io.*;
  * Created by major on 2015-07-28.
  */
 public class DomainBridgeServer {
-    private final String TAG_NAME = "DOMAIN_BRIDGE";
+    private final String TAG_NAME = "DOMAIN_BRIDGE_SERVER";
 
     public static final int READY = 0;
     public static final int PENDING = 1;
@@ -71,25 +73,37 @@ public class DomainBridgeServer {
                     receiver = server.accept();
 
                     if (receiver != null) {
-                        br = new BufferedReader(new InputStreamReader(receiver.getInputStream()));
+                        InputStream is = receiver.getInputStream();
 
-                        String json = br.readLine();
+                        byte[] typeBytes = new byte[4];
 
-                        br.close();
+                        is.read(typeBytes, 0, 4); // Read message type
+
+                        int messageType = java.nio.ByteBuffer.wrap(typeBytes).order(java.nio.ByteOrder.LITTLE_ENDIAN).getInt();
+
+                        Logi.println(TAG_NAME, "Message type: " + messageType);
+
+                        byte[] lengthBytes = new byte[4];
+
+                        is.read(lengthBytes, 0, 4); // Read message length
+
+                        int length = java.nio.ByteBuffer.wrap(lengthBytes).order(java.nio.ByteOrder.LITTLE_ENDIAN).getInt();
+
+                        Logi.println(TAG_NAME, "Message length: " + length);
+
+                        byte[] buffer = new byte[length];
+
+                        is.read(buffer, 0, length);
+                        is.close();
+
                         receiver.close();
 
-                        Logi.println(getClass().getName(), "Received: " + json);
+                        String jsonString = new String(buffer, 0, length);
 
-                        if (json.equals("stop")) {
-                            server.close();
-                            server = null;
+                        Logi.println(TAG_NAME, "Received: " + jsonString);
 
-                            break;
-                        } else {
-
-                            if (mCallback != null) {
-                                mCallback.onMessageArrived(json);
-                            }
+                        if (mCallback != null) {
+                            mCallback.onMessageArrived(jsonString);
                         }
                     }
                 }

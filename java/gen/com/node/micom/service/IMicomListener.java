@@ -2,7 +2,7 @@
 
 /*
  * This file is auto-generated.  DO NOT MODIFY.
- * Original file: /Volumes/major/workspace/android_avn_kitkat/external/wilson/java/src/com/node/micom/service/IMicomListener.aidl
+ * Original file: /Volumes/android/android_avn_kitkat/external/wilson_android/java/src/com/node/micom/service/IMicomListener.aidl
  */
 package com.node.micom.service;
 public interface IMicomListener extends android.os.IInterface

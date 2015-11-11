@@ -464,8 +464,6 @@ int NodeNetwork::connectGlobal(const char *address, int port)
 	int sock;
 
 	memset(&server_addr, 0, sizeof(server_addr));
-
-    LOGI("Connect to Server...\n");
     
 	server_addr.sin_family = AF_INET;
 	server_addr.sin_port = htons(port);
@@ -482,8 +480,6 @@ int NodeNetwork::connectGlobal(const char *address, int port)
         
         return -1;
     }
-    
-    LOGI("Connect to Server...\n");
     
 	if (connect(sock, (struct sockaddr*)&server_addr, sizeof(server_addr)) < 0)
 	{

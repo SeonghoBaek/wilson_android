@@ -88,7 +88,7 @@ int NodePort::listen()
 
 	LOGI("Client External IP: %s", buff);
 
-	sprintf(pUniqueClientName, "%s_%s", localIp, (char *)buff);
+	sprintf(pUniqueClientName, "%s%s_%s", NBUS_PACKET_START_CODE, localIp, (char *)buff);
 
 	// Send local ip : external ip : port
 	this->send(pUniqueClientName, NODE_NAME_LENGTH);

@@ -1,4 +1,4 @@
-/** 
+/**
 *
 *  @author		Seongho Baek
 *  @date		2014.08.12
@@ -16,6 +16,7 @@
 #include "NodeLooper.h"
 #include "NodeNetwork.h"
 #include "Packet.h"
+#include "Message.h"
 
 #include <sys/types.h>
 #include <sys/socket.h>
@@ -75,7 +76,7 @@ int DefaultService::Dispatcher::dispatch(const char *wakeup_event)
 void DefaultService::setupService(const char *serviceName)
 {
 	if (serviceName == NULL) return;
-    
+
     memset(mDefaultNode, 0, NODE_NAME_LENGTH+1);
 
 	memset(mServiceName, 0, SERVICE_NAME_LENGTH);
@@ -121,12 +122,12 @@ void DefaultService::run()
         LOGI("Run Local Coordinator\n");
 		this->mpCoordinator->startThread();
 		this->join(this->mpCoordinator->getNamespace());
-        
+
 		LOGI("Run Dispatcher\n");
         this->mpDispatcher->startThread();
-        
+
 		this->mNodePort.setOwner(this);
-        
+
         LOGI("DefaultLocalService Ready.\n");
 	}
 	else
@@ -169,7 +170,7 @@ int DefaultService::drop(const char* pNodeName)
 				this->mNumOfNode--;
 
 				delete pNode; // LIST_DEL
-                
+
                 if (strcmp(pNodeName, this->mDefaultNode) == 0)
                 {
                     memset(this->mDefaultNode, 0, NODE_NAME_LENGTH);
@@ -230,19 +231,19 @@ int DefaultService::join(const char* pNodeName, int type)
 int DefaultService::join(const char* pNodeName)
 {
     LOGI("Join to NodeBus: %s", pNodeName);
-    
+
     _GOODNESS(pNodeName, -1);
-    
+
 	NodeEntry *entry = new LocalNodeEntry(pNodeName);
-    
+
     /*
      *  Drop node with same name.
      */
-    
+
     drop(pNodeName);
 
 	if (this->addNodeEntry(entry) == NULL) return -1;
-    
+
 	/*
 	char* xml = NULL;
 
@@ -473,13 +474,17 @@ void DefaultService::processMessage()
                                // Need to check.
                                 LOGI("Register to Server\n");
 
-                                this->mpServerAddress = pBusXml->getIp();
-                                this->mServerPort = pBusXml->getPort();
+                               this->mpServerAddress = pBusXml->getIp();
+                               this->mServerPort = pBusXml->getPort();
                                
+                               memset(this->mServiceClientName, 0, NODE_NAME_LENGTH);
+                               
+                               strncpy(this->mServiceClientName, pBusXml->getNodeName(), strlen(pBusXml->getNodeName()));
+
                                 if (this->mNodePort.connect(this->mpServerAddress, this->mServerPort) > 0)
                                 {
                                     this->mNodePort.run();
-                                    
+
                                     LOGI("Register OK\n");
 
                                     LOGI("Create Default Node");
@@ -497,7 +502,7 @@ void DefaultService::processMessage()
                                     EventXML eventXml;
 
                                     eventXml.setType(EVT_TYPE_READY);
-                                    
+
                                     // Create header
                                     char *header = eventXml.toXML();
 
@@ -516,24 +521,22 @@ void DefaultService::processMessage()
                                 {
                                     LOGE("Register Failed\n");
                                 }
-                                
+
                            }
                            break;
                            case NBUS_CMD_UNREGISTER:
                            {
-                               
+
                            }
                            break;
                            case NBUS_CMD_SAVE_USB:
                            {
-                               int done = 17;
+                               int id = MSG_KEYWORD(USB_WRITE_DONE);
 
                                LOGI("Received NBUS_CMD_SAVE_USB");
 
-                               // Create logger node.
-
                                pid_t childPid = -1;
-
+							   
                                if ( (childPid = fork()) < 0 )
                                {
                                    LOGE("Fork bugreport node failure");
@@ -546,30 +549,53 @@ void DefaultService::processMessage()
 
                                    if (testFile == NULL)
                                    {
-                                       done = 16;
-
-                                       exit(0);
+                                       LOGI("USB Not Ready");
+                                       
+                                       exit(EXIT_FAILURE);
                                    }
                                    else
                                    {
                                        fclose(testFile);
                                        unlink("/storage/usb0/b.log");
                                        
+                                       LOGI("USB Ready");
+
                                        if (execvp("bugreport", eargv) == -1)
                                        {
                                            LOGE("bugreport exec failed");
+                                           
+                                           exit(EXIT_FAILURE);
                                        }
                                    }
                                }
                                else  // parent
                                {
 								   int status = -1;
+                                   char *text = "Bugreport saved in USB Storage";
 
 								   waitpid(childPid, &status, WUNTRACED);
+                                   
+                                   LOGI("Status: %d", WEXITSTATUS(status));
 
-                                   this->cast("node.wilson", &done, sizeof(int));
-
-                                   LOGI("Ready to send log");
+                                   if (WEXITSTATUS(status) == EXIT_FAILURE)
+                                   {
+                                       id = MSG_KEYWORD(USB_NOT_READY);
+                                       text = "No USB Storage Device";
+                                   }
+                                   
+                                   // JSON Message.
+                                   /*
+                                        {
+                                            "id":"1",
+                                            "text": "Hello World"
+                                        }
+                                    */
+                                   char *jsonString = new char[512];
+                                   memset(jsonString, 0, 512);
+                                   
+                                   sprintf(jsonString, "{\"id\":\"%d\",\"text\":\"%s\"}", id, text);
+                                   
+                                   this->cast(this->mServiceClientName, jsonString, strlen(jsonString), CUSTOM_MESSAGE);
                                }
 
 
@@ -610,13 +636,13 @@ void DefaultService::processMessage()
 				// Do not process.
 				delete pXml;
 			}
-			
+
 			delete pXmlParser;
 		}
 		else if (pItem->mType == GLOBAL_MESSAGE) // From network
 		{
 			//LOGI("Global Command Received: %s, %d", pItem->mpData, pItem->mLength);
-			
+
 			if (strlen(this->getDefaultNode()))
 			{
 				NodeNetwork::sendNodeMessage(this->getDefaultNode(), pItem->mpData, pItem->mLength, GLOBAL_MESSAGE);

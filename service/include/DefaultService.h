@@ -90,6 +90,7 @@ class DefaultService: public NodeBusService
 		char 			*mpServerAddress;
 		int  			mServerPort;
 		char			mServiceName[SERVICE_NAME_LENGTH];
+        char            mServiceClientName[NODE_NAME_LENGTH];
 		int				mNumOfNode;
 		NodeEntry		*mpNodeListHead;
 		Mutex_t			mLock;

@@ -10,6 +10,8 @@ import android.os.RemoteException;
 import com.ipc.IDomainBridgeCallback;
 import com.util.log.Logd;
 import com.util.log.Loge;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * Created by major on 10/29/15.
@@ -40,7 +42,16 @@ public class WilsonClient extends IWilsonRemoteListener.Stub implements IWilsonC
                 WilsonClient.this.mBinder.register(mServerIP, mServerPort);
 
                 if (mListener != null) {
-                    mListener.onMessageArrived("Wilson Service Connected");
+                    JSONObject jsonObject = new JSONObject();
+
+                    try {
+                        jsonObject.put("id", WilsonMessage.MSG_TYPE_REGOK);
+                        jsonObject.put("text", "Wilson Server Connected");
+
+                        mListener.onMessageArrived(jsonObject.toString());
+                    } catch (JSONException je) {
+                        Loge.println(TAG_NAME, je.toString());
+                    }
                 }
 
             } catch (RemoteException re) {
@@ -143,10 +154,6 @@ public class WilsonClient extends IWilsonRemoteListener.Stub implements IWilsonC
 
     @Override
     public int saveToUSB() {
-        synchronized (WilsonClient.class) {
-            if ( this.mConnected == false ) return -1;
-        }
-
         try {
             this.mBinder.saveToUSB();
         } catch (RemoteException re) {
