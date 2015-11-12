@@ -35,6 +35,7 @@ public class Main extends Activity {
     private EditText mTextServerIP;
     private EditText mTextServerPort;
     private Button mConnectBtn;
+    private Button mSaveBtn;
 
     private final int WHAT_REGISTER = 0;
     private final int WHAT_SAVED = 1;
@@ -59,9 +60,11 @@ public class Main extends Activity {
           if (id.equals(WilsonMessage.MSG_TYPE_USB_NOT_READY)) {
 
           } else if (id.equals(WilsonMessage.MSG_TYPE_USB_WRITE_DONE)) {
-
+              mSaveBtn.setText("Save bugreport to USB");
+          } else if (id.equals(WilsonMessage.MSG_TYPE_USB_WRITE_WAIT)) {
+              mSaveBtn.setText(text);
           } else if (id.equals(WilsonMessage.MSG_TYPE_REGOK)) {
-            mConnectBtn.setText("Wilson Server Registered");
+              mConnectBtn.setText("Wilson Server Registered");
           }
       }
     };
@@ -106,16 +109,16 @@ public class Main extends Activity {
 
                 if ( wifi.isConnected() ) {
                     Logi.println("Wilson Main Activity", "WiFi: " + wifi.getTypeName() + " connected.");
-                    mWilsonClient.connect(mTextServerIP.getText().toString(), mTextServerPort.getText().toString());
+                    mWilsonClient.register(mTextServerIP.getText().toString(), mTextServerPort.getText().toString());
                 } else{
                     Toast.makeText(Main.this, "No WiFi Network Connection.", Toast.LENGTH_SHORT).show();
                 }
             }
         });
 
-        Button saveBtn = (Button)findViewById(R.id.btnSave);
+        mSaveBtn = (Button)findViewById(R.id.btnSave);
 
-        saveBtn.setOnClickListener(new Button.OnClickListener() {
+        mSaveBtn.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
                 mWilsonClient.saveToUSB();
             }

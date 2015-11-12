@@ -6,6 +6,7 @@ package com.node.wilson;
 public interface IWilsonClient {
     int connect();
     int connect(String ip, String port);
+    int register(String ip, String port);
     int disconnect();
     int send(String data);
     int saveToUSB();

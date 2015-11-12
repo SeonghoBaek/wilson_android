@@ -1,3 +1,5 @@
+/*___Generated_by_IDEA___*/
+
 /*
  * This file is auto-generated.  DO NOT MODIFY.
  * Original file: /Volumes/android/android_avn_kitkat/external/wilson_android/java/src/com/node/micom/service/IMicomService.aidl

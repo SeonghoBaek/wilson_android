@@ -11,6 +11,7 @@ public interface WilsonMessage {
     String MSG_TYPE_USB_READY = "3";
     String MSG_TYPE_USB_WRITE_FAIL = "4";
     String MSG_TYPE_USB_WRITE_DONE = "5";
-    String MSG_TYPE_NONE = "6";
+    String MSG_TYPE_USB_WRITE_WAIT = "6";
+    String MSG_TYPE_NONE = "7";
 
 }

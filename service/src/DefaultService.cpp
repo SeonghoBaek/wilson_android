@@ -26,6 +26,7 @@
 #include <arpa/inet.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <signal.h>
 #include "DefaultNodeCallback.h"
 
 int DefaultService::Coordinator::localAction(void *data, unsigned int length, int type)
@@ -532,63 +533,25 @@ void DefaultService::processMessage()
                            case NBUS_CMD_SAVE_USB:
                            {
                                int id = MSG_KEYWORD(USB_WRITE_DONE);
+                               char *text = "Bugreport saved in USB Storage";
 
                                LOGI("Received NBUS_CMD_SAVE_USB");
 
-                               pid_t childPid = -1;
-							   
-                               if ( (childPid = fork()) < 0 )
+                               FILE *testFile = fopen("/storage/usb0/b.log", "w");
+                               
+                               if (testFile == NULL)
                                {
-                                   LOGE("Fork bugreport node failure");
-                               }
-                               else if (childPid == 0) // child
-                               {
-                                   char *eargv[] = {"bugreport", ">", "/storage/usb0/bugreport.log", NULL};
-
-                                   FILE *testFile = fopen("/storage/usb0/b.log", "w");
-
-                                   if (testFile == NULL)
-                                   {
-                                       LOGI("USB Not Ready");
-                                       
-                                       exit(EXIT_FAILURE);
-                                   }
-                                   else
-                                   {
-                                       fclose(testFile);
-                                       unlink("/storage/usb0/b.log");
-                                       
-                                       LOGI("USB Ready");
-
-                                       if (execvp("bugreport", eargv) == -1)
-                                       {
-                                           LOGE("bugreport exec failed");
-                                           
-                                           exit(EXIT_FAILURE);
-                                       }
-                                   }
-                               }
-                               else  // parent
-                               {
-								   int status = -1;
-                                   char *text = "Bugreport saved in USB Storage";
-
-								   waitpid(childPid, &status, WUNTRACED);
+                                   LOGI("USB Not Ready");
                                    
-                                   LOGI("Status: %d", WEXITSTATUS(status));
-
-                                   if (WEXITSTATUS(status) == EXIT_FAILURE)
-                                   {
-                                       id = MSG_KEYWORD(USB_NOT_READY);
-                                       text = "No USB Storage Device";
-                                   }
+                                   id = MSG_KEYWORD(USB_NOT_READY);
+                                   text = "No USB Storage Device";
                                    
                                    // JSON Message.
                                    /*
-                                        {
-                                            "id":"1",
-                                            "text": "Hello World"
-                                        }
+                                    {
+                                    "id":"1",
+                                    "text": "Hello World"
+                                    }
                                     */
                                    char *jsonString = new char[512];
                                    memset(jsonString, 0, 512);
@@ -596,9 +559,36 @@ void DefaultService::processMessage()
                                    sprintf(jsonString, "{\"id\":\"%d\",\"text\":\"%s\"}", id, text);
                                    
                                    this->cast(this->mServiceClientName, jsonString, strlen(jsonString), CUSTOM_MESSAGE);
+                                   
+                                   break;
                                }
-
-
+                               else
+                               {
+                                   fclose(testFile);
+                                   unlink("/storage/usb0/b.log");
+                               }
+                               
+                               signal(SIGCHLD, SIG_IGN);
+                               
+                               pid_t childPid = -1;
+							   
+                               if ( (childPid = fork()) < 0 )
+                               {
+                                   LOGE("Fork bugreport node failure");
+                               }
+                               else if (childPid == 0) // Child
+                               {
+                                   char *eargv[] = {"rbugreport", NULL};
+                                   
+                                   LOGI("USB Ready");
+                                   
+                                   if (execvp("rbugreport", eargv) == -1)
+                                   {
+                                       LOGE("bugreport exec failed");
+                                       
+                                       exit(EXIT_FAILURE);
+                                   }
+                               }
                            }
                            break;
                            default:

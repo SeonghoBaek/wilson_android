@@ -19,6 +19,9 @@ import com.util.log.Logd;
 import com.util.log.Loge;
 import com.util.log.Logi;
 
+import java.io.DataOutputStream;
+import java.io.IOException;
+
 /**
  * Created by major on 10/29/15.
  */

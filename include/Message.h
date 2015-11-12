@@ -17,6 +17,7 @@ enum  // node event id
     MSG_TYPE_USB_READY,
     MSG_TYPE_USB_WRITE_FAIL,
     MSG_TYPE_USB_WRITE_DONE,
+    MSG_TYPE_USB_WRITE_WAIT,
     
     MSG_TYPE_NONE
 };

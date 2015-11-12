@@ -39,21 +39,6 @@ public class WilsonClient extends IWilsonRemoteListener.Stub implements IWilsonC
                     mConnected = true;
                 }
 
-                WilsonClient.this.mBinder.register(mServerIP, mServerPort);
-
-                if (mListener != null) {
-                    JSONObject jsonObject = new JSONObject();
-
-                    try {
-                        jsonObject.put("id", WilsonMessage.MSG_TYPE_REGOK);
-                        jsonObject.put("text", "Wilson Server Connected");
-
-                        mListener.onMessageArrived(jsonObject.toString());
-                    } catch (JSONException je) {
-                        Loge.println(TAG_NAME, je.toString());
-                    }
-                }
-
             } catch (RemoteException re) {
                 Loge.println(TAG_NAME, re.toString());
             }
@@ -72,6 +57,8 @@ public class WilsonClient extends IWilsonRemoteListener.Stub implements IWilsonC
 
     public WilsonClient(Context context) {
         this.mContext = context;
+
+        this.connect();
     }
 
     public void onReceived(String data) {
@@ -125,6 +112,33 @@ public class WilsonClient extends IWilsonRemoteListener.Stub implements IWilsonC
             return -1;
         } else {
             Logd.println(TAG_NAME, "Bind OK");
+        }
+
+        return 0;
+    }
+
+    @Override
+    public int register(String ip, String port) {
+        mServerIP = ip;
+        mServerPort = port;
+
+        try {
+            WilsonClient.this.mBinder.register(mServerIP, mServerPort);
+
+            if (mListener != null) {
+                JSONObject jsonObject = new JSONObject();
+
+                try {
+                    jsonObject.put("id", WilsonMessage.MSG_TYPE_REGOK);
+                    jsonObject.put("text", "Wilson Server Connected");
+
+                    mListener.onMessageArrived(jsonObject.toString());
+                } catch (JSONException je) {
+                    Loge.println(TAG_NAME, je.toString());
+                }
+            }
+        } catch (RemoteException re) {
+            Loge.println(TAG_NAME, re.toString());
         }
 
         return 0;
