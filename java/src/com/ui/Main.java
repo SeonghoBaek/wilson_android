@@ -36,6 +36,7 @@ public class Main extends Activity {
     private EditText mTextServerPort;
     private Button mConnectBtn;
     private Button mSaveBtn;
+    private Button mLogcatBtn;
 
     private final int WHAT_REGISTER = 0;
     private final int WHAT_SAVED = 1;
@@ -65,6 +66,12 @@ public class Main extends Activity {
               mSaveBtn.setText(text);
           } else if (id.equals(WilsonMessage.MSG_TYPE_REGOK)) {
               mConnectBtn.setText("Wilson Server Registered");
+          } else if (id.equals(WilsonMessage.MSG_TYPE_USB_LOGCAT_WAIT)) {
+              mLogcatBtn.setText(text);
+          } else if (id.equals(WilsonMessage.MSG_TYPE_USB_LOGCAT_FAIL)) {
+              mLogcatBtn.setText(text);
+          } else if (id.equals(WilsonMessage.MSG_TYPE_USB_LOGCAT_DONE)) {
+              mLogcatBtn.setText("Save logcat to USB");
           }
       }
     };
@@ -121,6 +128,15 @@ public class Main extends Activity {
         mSaveBtn.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
                 mWilsonClient.saveToUSB();
+            }
+        });
+
+        mLogcatBtn = (Button)findViewById(R.id.btnLogcat);
+
+        mLogcatBtn.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
     }

@@ -10,4 +10,5 @@ public interface IWilsonClient {
     int disconnect();
     int send(String data);
     int saveToUSB();
+    int logcatToUSB();
 }

@@ -1,5 +1,5 @@
 package com.node.wilson;
 
 oneway interface IWilsonRemoteListener {
-    void onReceived(Object data);
+    void onReceived(String data);
 }

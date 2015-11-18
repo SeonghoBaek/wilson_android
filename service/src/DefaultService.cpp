@@ -421,55 +421,55 @@ void DefaultService::processMessage()
 
 				switch (pBusXml->getType())
 				{
-					case NBUS_TYPE_REQUEST:
-					{
-						switch (pBusXml->getId())
-						{
-							case NBUS_CMD_JOIN:
-							{
-								this->join(pBusXml->getNodeName());
-							}
-							break;
-							case NBUS_CMD_LIST:
-							{
-								NodeEntry *pNodeList = this->getNodeListHead();
-								NodeEntry *pNode = NULL;
-								NBUSXML nbusXml;
+                    case NBUS_TYPE_REQUEST:
+                    {
+                        switch (pBusXml->getId())
+                        {
+                            case NBUS_CMD_JOIN:
+                            {
+                                this->join(pBusXml->getNodeName());
+                            }
+                            break;
+                            case NBUS_CMD_LIST:
+                            {
+                                NodeEntry *pNodeList = this->getNodeListHead();
+                                NodeEntry *pNode = NULL;
+                                NBUSXML nbusXml;
 
-								nbusXml.setType(NBUS_TYPE_RESPONSE);
-								nbusXml.setSyncId(pBusXml->getSyncId());
-								nbusXml.setId(pBusXml->getId());
-								nbusXml.setSharedBufferAddrStr(pBusXml->getSharedBufferAddrStr());
-								nbusXml.setNodeName(pBusXml->getNodeName());
+                                nbusXml.setType(NBUS_TYPE_RESPONSE);
+                                nbusXml.setSyncId(pBusXml->getSyncId());
+                                nbusXml.setId(pBusXml->getId());
+                                nbusXml.setSharedBufferAddrStr(pBusXml->getSharedBufferAddrStr());
+                                nbusXml.setNodeName(pBusXml->getNodeName());
 
-								LOCK(this->mLock)
-								{
-									LIST_FOR_EACH(pNode, pNodeList)
-									{
-										nbusXml.addNode(pNode->getDescriptor());
-									}
-								}
+                                LOCK(this->mLock)
+                                {
+                                    LIST_FOR_EACH(pNode, pNodeList)
+                                    {
+                                        nbusXml.addNode(pNode->getDescriptor());
+                                    }
+                                }
 
-								char *pXml = nbusXml.toXML();
+                                char *pXml = nbusXml.toXML();
 
-								//LOGI("Response XML:%s", pXml);
+                                //LOGI("Response XML:%s", pXml);
 
-								int res = NodeNetwork::sendNodeMessage(nbusXml.getNodeName(), pXml, (unsigned int)strlen(pXml), LOCAL_MESSAGE);
+                                int res = NodeNetwork::sendNodeMessage(nbusXml.getNodeName(), pXml, (unsigned int)strlen(pXml), LOCAL_MESSAGE);
 
-								if (res < 0)
-								{
-									// Node Failure.
-									this->drop(nbusXml.getNodeName());
-								}
+                                if (res < 0)
+                                {
+                                    // Node Failure.
+                                    this->drop(nbusXml.getNodeName());
+                                }
 
-								delete [] pXml;
-							}
-							break;
-							case NBUS_CMD_DROP:
-							{
-								this->drop(pBusXml->getNodeName());
-							}
-							break;
+                                delete [] pXml;
+                            }
+                            break;
+                            case NBUS_CMD_DROP:
+                            {
+                                this->drop(pBusXml->getNodeName());
+                            }
+                            break;
                            case NBUS_CMD_REGISTER:
                            {
                                // Need to check.
@@ -477,9 +477,9 @@ void DefaultService::processMessage()
 
                                this->mpServerAddress = pBusXml->getIp();
                                this->mServerPort = pBusXml->getPort();
-                               
+
                                memset(this->mServiceClientName, 0, NODE_NAME_LENGTH);
-                               
+
                                strncpy(this->mServiceClientName, pBusXml->getNodeName(), strlen(pBusXml->getNodeName()));
 
                                 if (this->mNodePort.connect(this->mpServerAddress, this->mServerPort) > 0)
@@ -538,14 +538,14 @@ void DefaultService::processMessage()
                                LOGI("Received NBUS_CMD_SAVE_USB");
 
                                FILE *testFile = fopen("/storage/usb0/b.log", "w");
-                               
+
                                if (testFile == NULL)
                                {
                                    LOGI("USB Not Ready");
-                                   
+
                                    id = MSG_KEYWORD(USB_NOT_READY);
                                    text = "No USB Storage Device";
-                                   
+
                                    // JSON Message.
                                    /*
                                     {
@@ -555,11 +555,11 @@ void DefaultService::processMessage()
                                     */
                                    char *jsonString = new char[512];
                                    memset(jsonString, 0, 512);
-                                   
+
                                    sprintf(jsonString, "{\"id\":\"%d\",\"text\":\"%s\"}", id, text);
-                                   
+
                                    this->cast(this->mServiceClientName, jsonString, strlen(jsonString), CUSTOM_MESSAGE);
-                                   
+
                                    break;
                                }
                                else
@@ -567,11 +567,11 @@ void DefaultService::processMessage()
                                    fclose(testFile);
                                    unlink("/storage/usb0/b.log");
                                }
-                               
+
                                signal(SIGCHLD, SIG_IGN);
-                               
+
                                pid_t childPid = -1;
-							   
+
                                if ( (childPid = fork()) < 0 )
                                {
                                    LOGE("Fork bugreport node failure");
@@ -579,13 +579,74 @@ void DefaultService::processMessage()
                                else if (childPid == 0) // Child
                                {
                                    char *eargv[] = {"rbugreport", NULL};
-                                   
+
                                    LOGI("USB Ready");
-                                   
+
                                    if (execvp("rbugreport", eargv) == -1)
                                    {
                                        LOGE("bugreport exec failed");
-                                       
+
+                                       exit(EXIT_FAILURE);
+                                   }
+                               }
+                           }
+                           break;
+                           case NBUS_CMD_LOGCAT_USB:
+                           {
+                               int id = MSG_KEYWORD(USB_WRITE_DONE);
+                               char *text = "Logcat saved in USB Storage";
+
+                               LOGI("Received NBUS_CMD_LOGCAT_USB");
+
+                               FILE *testFile = fopen("/storage/usb0/u.log", "w");
+
+                               if (testFile == NULL)
+                               {
+                                   LOGI("USB Not Ready");
+
+                                   id = MSG_KEYWORD(USB_NOT_READY);
+                                   text = "No USB Storage Device";
+
+                                   // JSON Message.
+                                   /*
+                                    {
+                                    "id":"1",
+                                    "text": "Hello World"
+                                    }
+                                    */
+                                   char *jsonString = new char[512];
+                                   memset(jsonString, 0, 512);
+
+                                   sprintf(jsonString, "{\"id\":\"%d\",\"text\":\"%s\"}", id, text);
+
+                                   this->cast(this->mServiceClientName, jsonString, strlen(jsonString), CUSTOM_MESSAGE);
+
+                                   break;
+                               }
+                               else
+                               {
+                                   fclose(testFile);
+                                   unlink("/storage/usb0/u.log");
+                               }
+
+                               signal(SIGCHLD, SIG_IGN);
+
+                               pid_t childPid = -1;
+
+                               if ( (childPid = fork()) < 0 )
+                               {
+                                   LOGE("Fork ulogcat node failure");
+                               }
+                               else if (childPid == 0) // Child
+                               {
+                                   char *eargv[] = {"ulogcat", NULL};
+
+                                   LOGI("USB Ready");
+
+                                   if (execvp("ulogcat", eargv) == -1)
+                                   {
+                                       LOGE("ulogcat exec failed");
+
                                        exit(EXIT_FAILURE);
                                    }
                                }

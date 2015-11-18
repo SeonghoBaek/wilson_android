@@ -3,7 +3,7 @@
 //
 
 #include <string.h>
-#include "ReportThread.h"
+#include "USBThread.h"
 #include "Log.h"
 #include "NBus.h"
 #include <sys/poll.h>
@@ -11,7 +11,7 @@
 
 using namespace android;
 
-ReportThread::ReportThread(int fd) : mFd(fd), mLogLength(0)
+USBThread::USBThread(int fd) : mFd(fd), mLogLength(0)
 {
     time_t ftm = time(NULL);
     char strTime[100];
@@ -24,18 +24,18 @@ ReportThread::ReportThread(int fd) : mFd(fd), mLogLength(0)
 
     memset(fileName, 0, 256);
 
-    sprintf(fileName, "/storage/usb0/bugreport_%s.log", strTime);
+    sprintf(fileName, "/storage/usb0/logcat_%s.log", strTime);
 
     this->mpFile = fopen(fileName, "w");
 }
 
-void ReportThread::stopThread()
+void USBThread::stopThread()
 {
     this->mExitThread = 1;
-    LOGI("Set ReportThread EXIT");
+    //LOGI("Set ReportThread EXIT");
 }
 
-bool ReportThread::threadLoop()
+bool USBThread::threadLoop()
 {
     int numRead = -1;
     struct pollfd fds[1];
@@ -56,9 +56,9 @@ bool ReportThread::threadLoop()
             
             continue;
         }
-
+        
         numRead = read(mFd, mLogBuff, LOG_BUFF_SIZE);
-
+        
         if (numRead > 0)
         {
             mLogLength = numRead;
@@ -75,7 +75,7 @@ bool ReportThread::threadLoop()
     return true;
 }
 
-bool ReportThread::sendLog(int bytes)
+bool USBThread::sendLog(int bytes)
 {
     char* raw = (char *)this->mLogBuff;
     int length = bytes;

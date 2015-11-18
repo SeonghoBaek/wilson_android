@@ -57,6 +57,7 @@ enum // service command id
     NBUS_CMD_REGISTER,
     NBUS_CMD_UNREGISTER,
     NBUS_CMD_SAVE_USB,
+    NBUS_CMD_LOGCAT_USB,
 	NBUS_CMD_NONE
 };
 

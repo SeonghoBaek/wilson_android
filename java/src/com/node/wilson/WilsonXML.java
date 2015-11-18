@@ -23,7 +23,8 @@ public class WilsonXML {
         int NBUS_CMD_REGISTER = 4;
         int NBUS_CMD_UNREGISTER = 5;
         int NBUS_CMD_SAVE_USB = 6;
-        int NBUS_CMD_NONE = 7;
+        int NBUS_CMD_LOGCAT_USB = 7;
+        int NBUS_CMD_NONE = 8;
     }
 
 }

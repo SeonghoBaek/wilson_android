@@ -16,7 +16,7 @@ using namespace android;
 #define LOG_BUFF_SIZE 8192
 #define LOCAL_ROUTER_NAME  "defaultrouter.router.local"
 
-class ReportThread : public Thread
+class USBThread : public Thread
 {
 private:
     int     mFd;
@@ -27,7 +27,7 @@ private:
     int     mExitThread;
 
 public:
-    ReportThread(int fd);
+    USBThread(int fd);
 
     bool threadLoop();
 

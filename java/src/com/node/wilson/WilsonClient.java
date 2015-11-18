@@ -177,6 +177,17 @@ public class WilsonClient extends IWilsonRemoteListener.Stub implements IWilsonC
         return 0;
     }
 
+    @Override
+    public int logcatToUSB() {
+        try {
+            this.mBinder.logcatToUSB();
+        } catch (RemoteException re) {
+            re.printStackTrace();
+        }
+
+        return 0;
+    }
+
     public void addListener(IWilsonListener listener) {
         this.mListener = listener;
     }

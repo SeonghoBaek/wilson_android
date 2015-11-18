@@ -9,4 +9,5 @@
     <string name="ip">14.63.73.40</string>
     <string name="port">8088</string>
     <string name="save">Save bugreport to USB</string>
+    <string name="logcat">Save logcat to USB</string>
 </resources>

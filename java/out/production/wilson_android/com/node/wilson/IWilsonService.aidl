@@ -8,4 +8,5 @@ interface IWilsonService {
     int send(String data);
     int register(String ip, String port);
     int saveToUSB();
+    int logcatToUSB();
 }
