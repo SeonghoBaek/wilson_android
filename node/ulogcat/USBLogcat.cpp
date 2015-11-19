@@ -48,7 +48,7 @@ int main(int argc, char **argv)
 
     if ( (childPid = fork()) < 0 )
     {
-        LOGE("RedirectLogCat Fork Failure");
+        LOGE("USBLogCat Fork Failure");
 
         if (pfd[0] > 0)
         {
@@ -70,11 +70,11 @@ int main(int argc, char **argv)
         dup2(pfd[1], STDOUT_FILENO);
         //close(pfd[1]);
 
-        char *eargv[] = {"ulogcat", NULL};
+        char *eargv[] = {"logcat", NULL};
 
-        if (execvp("ulogcat", eargv) == -1)
+        if (execvp("logcat", eargv) == -1)
         {
-            LOGE("ulogcat exec failed");
+            LOGE("logcat exec failed");
             
             exit(EXIT_FAILURE);
         }

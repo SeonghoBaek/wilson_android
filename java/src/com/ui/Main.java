@@ -136,7 +136,7 @@ public class Main extends Activity {
         mLogcatBtn.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                mWilsonClient.logcatToUSB();
             }
         });
     }
