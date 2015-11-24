@@ -15,5 +15,6 @@ public interface DomainMessageType {
     int BUS_MESSAGE = 7;
     int DB_MESSAGE = 8;
     int CUSTOM_MESSAGE = 9;
-    int NONE_MESSAGE = 10;
+    int MICOM_MESSAGE = 10;
+    int NONE_MESSAGE = 11;
 }

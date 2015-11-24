@@ -1,7 +1,7 @@
 /**
 *
 *  @author		Seongho Baek
-*  @date		2014.08.12
+*
 */
 
 #ifndef		_TYPES_H_
@@ -114,6 +114,7 @@ enum
 	BUS_MESSAGE,
 	DB_MESSAGE,
 	CUSTOM_MESSAGE,
+	MICOM_MESSAGE,
 	NONE_MESSAGE
 };
 

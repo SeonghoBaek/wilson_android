@@ -2,121 +2,58 @@
 // Created by major on 9/7/15.
 //
 
-#include <string.h>
-#include <sys/poll.h>
-#include "Packet.h"
+#include <unistd.h>
+#include "Types.h"
 #include "MicomThread.h"
-#include "Log.h"
-#include "NBus.h"
-#include "XMLTypes.h"
 
-using namespace android;
+//using namespace android;
 
-MicomThread::MicomThread(int fd) : mFd(fd), mLogLength(0)
+MicomThread::MicomThread(NodeAdapter *pNodeAdapter)
 {
-    LOGI("LogCatThread Created.\n");
+    if (pNodeAdapter)
+    {
+        this->mpNodeAdapter = pNodeAdapter;
+    }
 }
 
-bool MicomThread::threadLoop()
+bool MicomThread::run()
 {
-    int numRead = -1;
-    struct pollfd fds[1];
-    int timeOut = 2000;
-    int timer = 0;
+    int readBytes = -1;
 
-    fds[0].fd = mFd;
-    fds[0].events = POLLIN;
-    fds[0].revents = 0;
-
-    for(;;)
-    {
-        poll(fds, 1, 100);
-
-        if (!(fds[0].revents & POLLIN))
-        {
-            timer += 100;
-
-            if (timer >= timeOut)
-            {
-                if (mLogLength > 0)
-                {
-                    this->sendLog(mLogLength);
-
-                    mLogLength = 0;
-
-                    timer = 0;
-                }
-            }
-
-            continue;
-        }
-
-        numRead = read(mFd, mBuff, LOG_TEMP_BUFF_SIZE);
-
-        if (numRead > 0)
-        {
-            memcpy(mLogBuff + mLogLength, mBuff, numRead);
-            mLogLength += numRead;
-            mLogBuff[mLogLength + 1] = '\0';
-
-            if (mLogLength > (LOG_BUFF_SIZE / 2))
-            {
-                this->sendLog(mLogLength);
-
-                mLogLength = 0;
-                timer = 0;
-            }
-        }
-        else if (numRead < 0) break;
-
-    }
-
+    // Read micom data
     while (1)
     {
-        numRead = read(mFd, mBuff, LOG_TEMP_BUFF_SIZE);
+        readBytes = readFromMicom();
 
-        if (numRead > 0)
+        if (readBytes > 0)
         {
-            memcpy(mLogBuff + mLogLength, mBuff, numRead);
-            mLogLength += numRead;
-            mLogBuff[mLogLength + 1] = '\0';
-
-            if (mLogLength > (LOG_BUFF_SIZE / 2))
-            {
-                this->sendLog(mLogLength);
-
-                mLogLength = 0;
-            }
+            sendData(readBytes);
         }
-        else if (numRead < 0) break;
     }
 
     return true;
 }
 
-bool MicomThread::sendLog(int bytes)
+int MicomThread::readFromMicom()
 {
-    char* raw = (char *)this->mLogBuff;
-    int length = bytes;
-    NBUSPacket packet;
+    /*
+     * Read micom data to this->mBuff.
+     * Return read bytes.
+     */
 
-    EventXML eventXml;
+     sleep(1);
 
-    //LOGI("LogcatThread sendLog: %d", bytes);
-    eventXml.setType(EVT_KEYWORD(LOG));
-    eventXml.setFormat(LOG_KEYWORD(TXT));
-    eventXml.setLength((unsigned int)length);
+     strncpy(this->mBuff, "hello", 5);
 
-    char *header = eventXml.toXML();
+     return 5;
+}
 
-    //LOGI("LogCatThread sendLog: %s", header);
-
-    packet.copyHeader(header,(int)strlen(header));
-    packet.copyData(raw, bytes);
-
-    nbus_cast(LOCAL_ROUTER_NAME, packet.getPacket(), packet.getPacketLength());
-
-    delete header;
+bool MicomThread::sendData(int bytes)
+{
+    if (this->mpNodeAdapter)
+    {
+        this->mpNodeAdapter->addQueue(this->mBuff, bytes, MICOM_MESSAGE);
+    }
 
     return true;
 }

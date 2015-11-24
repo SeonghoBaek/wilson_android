@@ -15,6 +15,7 @@ set(CLIENT_SOURCE_FILES
         ${NODEBUS}/src/NodeLooper.cpp
         ${NODEBUS}/src/NodeNetwork.cpp
         ${NODEBUS}/src/NodePort.cpp
+        ${NODEBUS}/src/NodeAdapter.cpp
         ${NODEBUS}/src/Packet.cpp
         ${NODEBUS}/src/Queue.cpp
         ${NODEBUS}/src/XMLParser.cpp
@@ -26,6 +27,7 @@ set(CLIENT_SOURCE_FILES
 set(HEADER_FILES
         ${NODEBUS}/include/Bridge.h
         ${NODEBUS}/include/Configure.h
+        ${NODEBUS}/include/Config.h
         ${NODEBUS}/include/DefaultService.h
         ${NODEBUS}/include/IMessageService.h
         ${NODEBUS}/include/INameService.h
@@ -49,5 +51,5 @@ set(HEADER_FILES
         ${NODEBUS}/include/NBus.h)
 
 add_executable(nodebus_client ${CLIENT_SOURCE_FILES} ${HEADER_FILES})
-
+add_library(nbus ${CLIENT_SOURCE_FILES} ${HEADER_FILES} src/NodeAdapter.cpp src/NodeAdapter.cpp.h)
 target_link_libraries(nodebus_client xml2)

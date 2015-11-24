@@ -18,6 +18,7 @@
 
 #define DEFAULT_LOCAL_SERVICE_NAME DOMAIN_PREFIX "nodebus.local.service.defaultservice"
 
+#define MICOM_NODE_NAME "node.micom"
 
 #ifndef NULL
 #define NULL 0

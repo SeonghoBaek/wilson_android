@@ -2,34 +2,35 @@
 // Created by major on 9/7/15.
 //
 
-#ifndef ANDROID_AVN_KITKAT_LOGCATTHREAD_H
-#define ANDROID_AVN_KITKAT_LOGCATTHREAD_H
+#ifndef ANDROID_AVN_KITKAT_MICOMTHREAD_H
+#define ANDROID_AVN_KITKAT_MICOMTHREAD_H
 
-#include <utils/Thread.h>
 #include <unistd.h>
 #include "Log.h"
+#include "NodeBus.h"
+#include "Thread.h"
 
-using namespace android;
+//using namespace android;
 
-#define LOG_TEMP_BUFF_SIZE 2048
-#define LOG_BUFF_SIZE 4096
-#define LOCAL_ROUTER_NAME  "defaultrouter.router.local"
+#define LOG_TEMP_BUFF_SIZE 4096
 
 class MicomThread : public Thread
 {
 private:
-    int     mFd;
     char    mBuff[LOG_TEMP_BUFF_SIZE];
-    char    mLogBuff[LOG_BUFF_SIZE];
     int     mLogLength;
+    NodeAdapter *mpNodeAdapter;
 
 public:
-    MicomThread(int fd);
+    IMPLEMENT_THREAD(run())
 
-    bool threadLoop();
+    MicomThread(NodeAdapter *pNodeAdapter);
 
-    bool sendLog(int bytes);
+    bool run();
+
+    bool sendData(int bytes);
+
+    int readFromMicom();
 };
 
-
-#endif //ANDROID_AVN_KITKAT_LOGCATTHREAD_H
+#endif

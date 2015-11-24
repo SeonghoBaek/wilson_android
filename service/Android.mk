@@ -19,6 +19,7 @@ LOCAL_SRC_FILES := \
                     src/Log.cpp \
                     src/NodeLooper.cpp \
                     src/NodeNetwork.cpp \
+                    src/NodeAdapter.cpp \
                     src/NodePort.cpp \
                     src/Packet.cpp \
                     src/Queue.cpp \
@@ -57,6 +58,7 @@ LOCAL_SRC_FILES := \
                     src/NodeLooper.cpp \
                     src/NodeNetwork.cpp \
                     src/NodePort.cpp \
+                    src/NodeAdapter.cpp \
                     src/Packet.cpp \
                     src/Queue.cpp \
                     src/XMLParser.cpp \

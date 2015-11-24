@@ -2,94 +2,66 @@
 // Created by major on 9/7/15.
 //
 
-#include <sys/wait.h>
 #include <stdlib.h>
+#include "Config.h"
+#include "Types.h"
 #include "NodeLooper.h"
+#include "MicomDaemon.h"
 #include "MicomThread.h"
 
-using namespace android;
+int micom_callback(void *data, unsigned int length, int type)
+{
+    _GOODNESS(data, -1);
 
-// rlogcat node
+    /*
+     * if type == MICOM_MESSAGE, we received from micom
+     * else we received from other node(system), send to micom
+     */
+
+    if (type == MICOM_MESSAGE)
+    {
+        // Received from MICOM
+        char buff[6];
+        memset(buff, 0, 6);
+        memcpy(buff, data, 6);
+        LOGI("micomd: Received from MICOM: %s", buff);
+    }
+    else if ( type == LOCAL_MESSAGE || type == CUSTOM_MESSAGE)
+    {
+        // Send data to MICOM
+    }
+
+    return 0;
+}
+
+int NodeLooperCallback(const char* event)
+{
+    // Received from looper.
+    // No need to use, just ignore.
+
+    return 0;
+}
+
 int main(int argc, char **argv)
 {
-    pid_t childPid = -1;
+    NodeLooper *pLooper = new NodeLooper(NodeLooperCallback);
+    Mutex_t lock = Lock::createMutex();
 
-    int pfd[2];
+    /* Craete NodeBus Node with NodeAdapter Class */
+    NodeAdapter* pNodeAdapter = NodeBus::createLocalNodeAdapter(MICOM_NODE_NAME, micom_callback);
+    /* Run Node Thread */
+    pNodeAdapter->run();
+    /* Join to default service */
+    INodeBusService *pService = NodeBus::getDefaltServiceInterface();  // Get service interface
+    pService->join(pNodeAdapter);  // Join to service.
 
-    pipe(pfd);
+    // Create Micom Thread
+    MicomThread *mt = new MicomThread(pNodeAdapter);
 
-    if ( (childPid = fork()) < 0 )
-    {
-        LOGE("RedirectLogCat Fork Failure");
+    mt->setThreadName(MICOM_DISPATCH_THREAD_NAME);
+    mt->startThread();
 
-        if (pfd[0] > 0)
-        {
-            close(pfd[0]);
-            close(pfd[1]);
-        }
-
-        exit(-1);
-    }
-
-    if (childPid == 0) // child
-    {
-        //int ready = -1;
-        //read(pfd[0], &ready, sizeof(int)); // wait parent log reader ready.
-
-        int cchildPid = -1;
-
-        if ((cchildPid = fork()) < 0)
-        {
-            LOGE("dmesg fork failure");
-
-            if (pfd[0] > 0) {
-                close(pfd[0]);
-                close(pfd[1]);
-            }
-
-            exit(-1);
-        }
-
-        if (cchildPid == 0)
-        {
-            close(pfd[0]);
-            dup2(pfd[1], STDOUT_FILENO);
-            close(pfd[1]);
-
-            char *dmesgargv[] = {"dmesg", NULL};
-
-            if (execvp("dmesg", dmesgargv) == -1)
-            {
-                LOGE("dmesg exec failed");
-            }
-        }
-        else
-        {
-            int status = -1;
-
-            waitpid(childPid, &status, WUNTRACED);  // Wait dmesg dump.
-
-            close(pfd[0]);
-            dup2(pfd[1], STDOUT_FILENO);
-            close(pfd[1]);
-
-            char *eargv[] = {"logcat", NULL};
-
-            if (execvp("logcat", eargv) == -1) {
-                LOGE("logcat exec failed");
-            }
-        }
-    }
-    else // parent
-    {
-        int status = -1;
-
-        LogCatThread logCatThread(pfd[0]);
-
-        logCatThread.run();
-
-        waitpid(childPid, &status, WUNTRACED);
-    }
+    pLooper->wait(-1);
 
     exit(EXIT_SUCCESS);
 }
