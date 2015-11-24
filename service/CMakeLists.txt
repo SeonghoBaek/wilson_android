@@ -20,6 +20,7 @@ set(CLIENT_SOURCE_FILES
         ${NODEBUS}/src/XMLParser.cpp
         ${NODEBUS}/src/Bridge.cpp
         ${NODEBUS}/src/DefaultNodeCallback.cpp
+        ${NODEBUS}/src/NBus.cpp
 )
 
 set(HEADER_FILES
@@ -44,7 +45,8 @@ set(HEADER_FILES
         ${NODEBUS}/include/XMLParser.h
         ${NODEBUS}/include/XMLTypes.h
         ${NODEBUS}/include/DefaultNodeCallback.h
-        ${NODEBUS}/include/Message.h)
+        ${NODEBUS}/include/Message.h
+        ${NODEBUS}/include/NBus.h)
 
 add_executable(nodebus_client ${CLIENT_SOURCE_FILES} ${HEADER_FILES})
 

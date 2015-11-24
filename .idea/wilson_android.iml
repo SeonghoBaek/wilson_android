@@ -29,6 +29,11 @@
       <sourceFolder url="file://$MODULE_DIR$/node/bugreport/CMakeLists.txt" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/node/bugreport/ReportThread.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/node/bugreport/ReportThread.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/node/micom/CMakeLists.txt" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/node/micom/MicomDaemon.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/node/micom/MicomDaemon.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/node/micom/MicomThread.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/node/micom/MicomThread.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/node/rlogcat/CMakeLists.txt" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/node/rlogcat/LogCatThread.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/node/rlogcat/LogCatThread.h" isTestSource="false" />
@@ -51,6 +56,7 @@
       <sourceFolder url="file://$MODULE_DIR$/service/include/Lock.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/service/include/Log.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/service/include/Message.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/service/include/NBus.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/service/include/NodeBus.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/service/include/NodeBusService.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/service/include/NodeEntry.h" isTestSource="false" />
@@ -69,6 +75,7 @@
       <sourceFolder url="file://$MODULE_DIR$/service/src/LocalBusInit.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/service/src/Lock.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/service/src/Log.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/service/src/NBus.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/service/src/NodeLooper.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/service/src/NodeNetwork.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/service/src/NodePort.cpp" isTestSource="false" />
@@ -498,11 +505,12 @@
           <root url="file://$MODULE_DIR$/service/include/Thread.h" />
           <root url="file://$MODULE_DIR$/service/include/Log.h" />
           <root url="file://$MODULE_DIR$/service/include/List.h" />
+          <root url="file://$MODULE_DIR$/service/include/DefaultService.h" />
           <root url="file://$MODULE_DIR$/service/include/Bridge.h" />
+          <root url="file://$MODULE_DIR$/service/include/NBus.h" />
           <root url="file://$MODULE_DIR$/service/include/NodeBusService.h" />
           <root url="file://$MODULE_DIR$/service/include/INameService.h" />
           <root url="file://$MODULE_DIR$/service/include/XMLTypes.h" />
-          <root url="file://$MODULE_DIR$/service/include/DefaultService.h" />
           <root url="file://$MODULE_DIR$/service/include/XMLParser.h" />
           <root url="file://$MODULE_DIR$/service/include/Lock.h" />
           <root url="file://$MODULE_DIR$/service/include/INodeBusService.h" />

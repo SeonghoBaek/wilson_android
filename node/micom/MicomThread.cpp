@@ -5,7 +5,7 @@
 #include <string.h>
 #include <sys/poll.h>
 #include "Packet.h"
-#include "LogCatThread.h"
+#include "MicomThread.h"
 #include "Log.h"
 #include "NBus.h"
 #include "XMLTypes.h"

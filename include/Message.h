@@ -21,7 +21,7 @@ enum  // node event id
     MSG_TYPE_USB_LOGCAT_WAIT,
     MSG_TYPE_USB_LOGCAT_FAIL,
     MSG_TYPE_USB_LOGCAT_DONE,
-
+    
     MSG_TYPE_NONE
 };
 

@@ -22,7 +22,7 @@
 
 #define NODEBUS_LOG_VERBOSE 3
 
-#define  _LOG_TAG "nodebus"
+#define  _LOG_TAG "wilson"
 
 // 0: full log, 1: error only
 #define DEBUG_MODE 0

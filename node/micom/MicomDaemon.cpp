@@ -5,7 +5,7 @@
 #include <sys/wait.h>
 #include <stdlib.h>
 #include "NodeLooper.h"
-#include "LogCatThread.h"
+#include "MicomThread.h"
 
 using namespace android;
 
@@ -84,7 +84,7 @@ int main(int argc, char **argv)
     {
         int status = -1;
 
-        MicomThread logCatThread(pfd[0]);
+        LogCatThread logCatThread(pfd[0]);
 
         logCatThread.run();
 
