@@ -3,6 +3,7 @@
 *  @author		Seongho Baek
 *  @date		2014.08.12
 */
+#define _LOG_TAG "DefaultService"
 
 #include "DefaultService.h"
 #include "Configure.h"
@@ -265,9 +266,9 @@ int DefaultService::join(const char* pNodeName)
 	return 0;
 }
 
-int DefaultService::broadcast(const void *manifest, unsigned int length, int type)
+int DefaultService::broadcast(const void *manifest, unsigned int length, int type, int msgType)
 {
-	if (type == NODE_ENTRY_LOCAL) return this->broadcast(manifest, length);
+	if (type == NODE_ENTRY_LOCAL) return this->broadcast(manifest, length, msgType);
 
 	_GOODNESS(manifest, -1);
 
@@ -285,7 +286,7 @@ int DefaultService::broadcast(const void *manifest, unsigned int length, int typ
 				NodeEntry *pPrevNode = LIST_PREV(pNode);
 
 				//LOGI("Broadcast to %s", pNode->getDescriptor());
-				if (NodeNetwork::sendNodeMessage(pNode->getDescriptor(), manifest, length, BC_CLIENT_MESSAGE) < 0)
+				if (NodeNetwork::sendNodeMessage(pNode->getDescriptor(), manifest, length, msgType) < 0)
 				{
 					LOGE("Node Closed: Dropping %s", pNode->getDescriptor());
 
@@ -304,7 +305,7 @@ int DefaultService::broadcast(const void *manifest, unsigned int length, int typ
 	return 0;
 }
 // Broadcast is applicable to local networked nodes
-int DefaultService::broadcast(const void *manifest, unsigned int length)
+int DefaultService::broadcast(const void *manifest, unsigned int length, int msgType)
 {
 	_GOODNESS(manifest, -1);
 
@@ -321,7 +322,7 @@ int DefaultService::broadcast(const void *manifest, unsigned int length)
 			{
 				NodeEntry *pPrevNode = LIST_PREV(pNode);
 
-				if (NodeNetwork::sendNodeMessage(pNode->getDescriptor(), manifest, length, BC_LOCAL_MESSAGE) < 0)
+				if (NodeNetwork::sendNodeMessage(pNode->getDescriptor(), manifest, length, msgType) < 0)
 				{
 					LOGE("Node Closed: Dropping %s", pNode->getDescriptor());
 
@@ -558,7 +559,8 @@ void DefaultService::processMessage()
 
                                    sprintf(jsonString, "{\"id\":\"%d\",\"text\":\"%s\"}", id, text);
 
-                                   this->cast(this->mServiceClientName, jsonString, strlen(jsonString), CUSTOM_MESSAGE);
+                                   //this->cast(this->mServiceClientName, jsonString, strlen(jsonString), CUSTOM_MESSAGE);
+                                   this->broadcast(jsonString, strlen(jsonString), JSON_MESSAGE);
 
                                    break;
                                }
@@ -619,7 +621,8 @@ void DefaultService::processMessage()
 
                                    sprintf(jsonString, "{\"id\":\"%d\",\"text\":\"%s\"}", id, text);
 
-                                   this->cast(this->mServiceClientName, jsonString, strlen(jsonString), CUSTOM_MESSAGE);
+                                   //this->cast(this->mServiceClientName, jsonString, strlen(jsonString), CUSTOM_MESSAGE);
+                                   this->broadcast(jsonString, strlen(jsonString), JSON_MESSAGE);
 
                                    break;
                                }
@@ -706,7 +709,7 @@ void DefaultService::processMessage()
 		else if (pItem->mType == BC_LOCAL_MESSAGE)
 		{
 			//LOGI("BroadCast Command Received: %s, %d", pItem->mpData, pItem->mLength);
-			this->broadcast(pItem->mpData, pItem->mLength);
+			this->broadcast(pItem->mpData, pItem->mLength, BC_LOCAL_MESSAGE);
 		}
 		else if (pItem->mType == BC_CLIENT_MESSAGE)
 		{

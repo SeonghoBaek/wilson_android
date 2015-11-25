@@ -1,6 +1,7 @@
 //
 // Created by major on 9/7/15.
 //
+#define _LOG_TAG "bugreport_thread"
 
 #include <string.h>
 #include "ReportThread.h"

@@ -2,20 +2,12 @@
 *
 *  @author		Seongho Baek
 */
+#define _LOG_TAG "LocalBusInit"
 
 #include "Log.h"
 #include "NodeBus.h"
 #include "NodeLooper.h"
-#include "Thread.h"
-#include "XMLTypes.h"
-#include "XMLParser.h"
 #include "DefaultService.h"
-#include "INodeBusService.h"
-#include "Packet.h"
-
-#include <stdlib.h>
-#include <stdio.h>
-#include <DefaultNodeCallback.h>
 
 int main(int argc, char** argv)
 {

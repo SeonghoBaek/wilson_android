@@ -1,6 +1,7 @@
 //
 // Created by major on 9/7/15.
 //
+#define _LOG_TAG "rlogcat"
 
 #include <sys/wait.h>
 #include <stdlib.h>
@@ -84,7 +85,7 @@ int main(int argc, char **argv)
     {
         int status = -1;
 
-        MicomThread logCatThread(pfd[0]);
+        LogCatThread logCatThread(pfd[0]);
 
         logCatThread.run();
 

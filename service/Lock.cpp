@@ -1,11 +1,9 @@
 /** 
 *
 *  @author		Seongho Baek
-*  @date		2014.08.12
 */
 
 #include "Lock.h"
-#include "Types.h"
 
 Mutex_t Lock::createMutex()
 {

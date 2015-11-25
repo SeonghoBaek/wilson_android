@@ -1,6 +1,7 @@
 //
 // Created by major on 11/24/15.
 //
+#define _LOG_TAG "NodeAdapter"
 
 #include "NodeBus.h"
 

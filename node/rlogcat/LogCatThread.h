@@ -15,7 +15,7 @@ using namespace android;
 #define LOG_BUFF_SIZE 4096
 #define LOCAL_ROUTER_NAME  "defaultrouter.router.local"
 
-class MicomThread : public Thread
+class LogCatThread : public Thread
 {
 private:
     int     mFd;
@@ -24,7 +24,7 @@ private:
     int     mLogLength;
 
 public:
-    MicomThread(int fd);
+    LogCatThread(int fd);
 
     bool threadLoop();
 

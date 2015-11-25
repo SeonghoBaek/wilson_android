@@ -1,6 +1,7 @@
 //
 // Created by major on 9/7/15.
 //
+#define _LOG_TAG "logcat_thread"
 
 #include <string.h>
 #include <sys/poll.h>
@@ -12,12 +13,12 @@
 
 using namespace android;
 
-MicomThread::MicomThread(int fd) : mFd(fd), mLogLength(0)
+LogCatThread::LogCatThread(int fd) : mFd(fd), mLogLength(0)
 {
     LOGI("LogCatThread Created.\n");
 }
 
-bool MicomThread::threadLoop()
+bool LogCatThread::threadLoop()
 {
     int numRead = -1;
     struct pollfd fds[1];
@@ -94,7 +95,7 @@ bool MicomThread::threadLoop()
     return true;
 }
 
-bool MicomThread::sendLog(int bytes)
+bool LogCatThread::sendLog(int bytes)
 {
     char* raw = (char *)this->mLogBuff;
     int length = bytes;

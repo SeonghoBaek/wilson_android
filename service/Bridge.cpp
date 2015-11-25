@@ -1,8 +1,9 @@
 /**
 *
-*  @author		Seongho Baek(major.baek@lge.com)
-*  @date		2014.08.12
+*  @author		Seongho Baek
 */
+
+#define _LOG_TAG "bridge"
 
 #include <pthread.h>
 #include <sys/types.h>

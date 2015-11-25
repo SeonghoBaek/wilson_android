@@ -103,7 +103,8 @@ public class DomainBridgeServer {
                         Logi.println(TAG_NAME, "Received: " + jsonString);
 
                         if (mCallback != null) {
-                            mCallback.onMessageArrived(jsonString);
+                            if (messageType == DomainMessageType.JSON_MESSAGE) // Java Server receives only JSON message type.
+                                mCallback.onMessageArrived(jsonString);
                         }
                     }
                 }

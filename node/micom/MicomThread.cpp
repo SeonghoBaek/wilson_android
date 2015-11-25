@@ -1,12 +1,11 @@
 //
 // Created by major on 9/7/15.
 //
+#define _LOG_TAG "micom_thread"
 
 #include <unistd.h>
 #include "Types.h"
 #include "MicomThread.h"
-
-//using namespace android;
 
 MicomThread::MicomThread(NodeAdapter *pNodeAdapter)
 {

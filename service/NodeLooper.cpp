@@ -1,9 +1,8 @@
 /**
 *
 *  @author		Seongho Baek
-*  @date		2014.08.12
 */
-
+#define _LOG_TAG "NodeLooper"
 
 #include "NodeLooper.h"
 #include "Log.h"

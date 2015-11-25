@@ -1,6 +1,7 @@
 //
 // Created by major on 9/7/15.
 //
+#define _LOG_TAG "micomd"
 
 #include <stdlib.h>
 #include "Config.h"
@@ -24,9 +25,9 @@ int micom_callback(void *data, unsigned int length, int type)
         char buff[6];
         memset(buff, 0, 6);
         memcpy(buff, data, 6);
-        LOGI("micomd: Received from MICOM: %s", buff);
+        LOGI("Received from MICOM: %s", buff);
     }
-    else if ( type == LOCAL_MESSAGE || type == CUSTOM_MESSAGE)
+    else if ( type == MICOM_REQUEST_MESSAGE)
     {
         // Send data to MICOM
     }

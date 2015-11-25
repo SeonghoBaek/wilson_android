@@ -3,6 +3,7 @@
 *  @author		Seongho Baek
 *  @date		2014.08.12
 */
+#define _LOG_TAG "INodeBusService"
 
 #include <stdio.h>
 #include <string.h>

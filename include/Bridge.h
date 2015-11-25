@@ -1,7 +1,7 @@
 /**
 *
-*  @author		Seongho Baek(major.baek@lge.com)
-*  @date		2014.08.12
+*  @author		Seongho Baek
+*
 */
 
 #ifndef CBRIDGE_H_

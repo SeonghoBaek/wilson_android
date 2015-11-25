@@ -1,7 +1,7 @@
 /** 
 *
 *  @author		Seongho Baek
-*  @date		2014.08.12
+*
 */
 
 #ifndef __NODEENTRY_H

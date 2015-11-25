@@ -1,6 +1,7 @@
 //
 // Created by major on 11/2/15.
 //
+#define _LOG_TAG "DefaultNodeCallback"
 
 #include "DefaultNodeCallback.h"
 

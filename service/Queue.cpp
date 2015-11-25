@@ -1,9 +1,9 @@
 /**
 *
 *  @author		Seongho Baek
-*  @date		2014.08.12
 */
 
+#define _LOG_TAG "NBUS_CMD_QUEUE"
 
 #include <string.h>
 #include "Log.h"

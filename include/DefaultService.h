@@ -1,11 +1,11 @@
 /** 
 *
 *  @author		Seongho Baek
-*  @date		2014.08.12
+*
 */
 
-#ifndef __LOCALSERVICE_H
-#define __LOCALSERVICE_H
+#ifndef __DEFAULTSERVICE_H
+#define __DEFAULTSERVICE_H
 
 #include "Lock.h"
 #include "NodeEntry.h"
@@ -115,8 +115,8 @@ class DefaultService: public NodeBusService
 
 		virtual int cast(const char* nodename, const void *manifest, unsigned int length);
 		virtual int cast(const char* nodename, const void *manifest, unsigned int length, int type);
-		virtual int broadcast(const void *manifest, unsigned int length);
-		virtual int broadcast(const void *manifest, unsigned int length, int type);
+		virtual int broadcast(const void *manifest, unsigned int length, int msgType);
+		virtual int broadcast(const void *manifest, unsigned int length, int type, int msgType);
 		virtual int join(const char *pNodeName);
 		virtual int join(const char *pNodeName, int type);
 		virtual int drop(const char *pNodeName);

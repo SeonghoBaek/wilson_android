@@ -1,10 +1,3 @@
-/*
- * nbus.h
- *
- *  Created on: 2014. 8. 19.
- *      Author: major.baek
- */
-
 #ifndef NBUS_H_
 #define NBUS_H_
 

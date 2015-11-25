@@ -1,8 +1,8 @@
 /**
 *
 *  @author		Seongho Baek
-*  @date		2014.08.12
 */
+#define _LOG_TAG "NodeNetwork"
 
 #include <pthread.h>
 #include <string.h>

@@ -1,7 +1,7 @@
-/** 
+/**
 *
 *  @author		Seongho Baek
-*  @date		2014.08.12
+*
 */
 
 #ifndef _LOG_H_
@@ -22,7 +22,7 @@
 
 #define NODEBUS_LOG_VERBOSE 3
 
-#define  _LOG_TAG "wilson"
+//#define  _LOG_TAG "wilson"
 
 // 0: full log, 1: error only
 #define DEBUG_MODE 0
@@ -32,6 +32,9 @@
 
 void NBUS_PrintMessage(int type, const char *func, int line, const char *fmt, ...);
 
+#ifndef _LOG_TAG
+#define _LOG_TAG "wilson"
+#endif
 
 #define  LOGE(...) \
            __android_log_print(ANDROID_LOG_ERROR,_LOG_TAG,__VA_ARGS__)

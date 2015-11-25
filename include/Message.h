@@ -1,11 +1,3 @@
-//
-//  EventMessage.h
-//  Wilson Android
-//
-//  Created by major on 11/11/15.
-//  Copyright (c) 2015 major. All rights reserved.
-//
-
 #ifndef Wilson_Android_Message_h
 #define Wilson_Android_Message_h
 
