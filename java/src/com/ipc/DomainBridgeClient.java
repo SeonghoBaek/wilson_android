@@ -95,7 +95,8 @@ public class DomainBridgeClient {
 
             OutputStream outputStream = localSocket.getOutputStream();
 
-            int type = 1;
+            int type = DomainMessageType.MICOM_MESSAGE;
+
             int size = msg.getBytes().length;
 
             byte[] typeByte = ByteReorder.toCBytesArray(type);

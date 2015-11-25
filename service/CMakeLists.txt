@@ -2,54 +2,54 @@ cmake_minimum_required(VERSION 2.8)
 project(nodebus)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -pthread")
-include_directories(${CMAKE_SOURCE_DIR}/service/include)
+include_directories(${CMAKE_SOURCE_DIR}/include)
 
 set(NODEBUS ${CMAKE_SOURCE_DIR}/service)
 
 set(CLIENT_SOURCE_FILES
-        ${NODEBUS}/src/DefaultService.cpp
-        ${NODEBUS}/src/INodeBusService.cpp
-        ${NODEBUS}/src/LocalBusInit.cpp
-        ${NODEBUS}/src/Lock.cpp
-        ${NODEBUS}/src/Log.cpp
-        ${NODEBUS}/src/NodeLooper.cpp
-        ${NODEBUS}/src/NodeNetwork.cpp
-        ${NODEBUS}/src/NodePort.cpp
-        ${NODEBUS}/src/NodeAdapter.cpp
-        ${NODEBUS}/src/Packet.cpp
-        ${NODEBUS}/src/Queue.cpp
-        ${NODEBUS}/src/XMLParser.cpp
-        ${NODEBUS}/src/Bridge.cpp
-        ${NODEBUS}/src/DefaultNodeCallback.cpp
-        ${NODEBUS}/src/NBus.cpp
+        ${NODEBUS}/DefaultService.cpp
+        ${NODEBUS}/INodeBusService.cpp
+        ${NODEBUS}/LocalBusInit.cpp
+        ${NODEBUS}/Lock.cpp
+        ${NODEBUS}/Log.cpp
+        ${NODEBUS}/NodeLooper.cpp
+        ${NODEBUS}/NodeNetwork.cpp
+        ${NODEBUS}/NodePort.cpp
+        ${NODEBUS}/NodeAdapter.cpp
+        ${NODEBUS}/Packet.cpp
+        ${NODEBUS}/Queue.cpp
+        ${NODEBUS}/XMLParser.cpp
+        ${NODEBUS}/Bridge.cpp
+        ${NODEBUS}/DefaultNodeCallback.cpp
+        ${NODEBUS}/NBus.cpp
 )
 
 set(HEADER_FILES
-        ${NODEBUS}/include/Bridge.h
-        ${NODEBUS}/include/Configure.h
-        ${NODEBUS}/include/Config.h
-        ${NODEBUS}/include/DefaultService.h
-        ${NODEBUS}/include/IMessageService.h
-        ${NODEBUS}/include/INameService.h
-        ${NODEBUS}/include/INodeBusService.h
-        ${NODEBUS}/include/List.h
-        ${NODEBUS}/include/Lock.h
-        ${NODEBUS}/include/Log.h
-        ${NODEBUS}/include/NodeBus.h
-        ${NODEBUS}/include/NodeBusService.h
-        ${NODEBUS}/include/NodeEntry.h
-        ${NODEBUS}/include/NodeLooper.h
-        ${NODEBUS}/include/NodeNetwork.h
-        ${NODEBUS}/include/NodePort.h
-        ${NODEBUS}/include/Packet.h
-        ${NODEBUS}/include/Thread.h
-        ${NODEBUS}/include/Types.h
-        ${NODEBUS}/include/XMLParser.h
-        ${NODEBUS}/include/XMLTypes.h
-        ${NODEBUS}/include/DefaultNodeCallback.h
-        ${NODEBUS}/include/Message.h
-        ${NODEBUS}/include/NBus.h)
+        ${CMAKE_SOURCE_DIR}/include/Bridge.h
+        ${CMAKE_SOURCE_DIR}/include/Configure.h
+        ${CMAKE_SOURCE_DIR}/include/Config.h
+        ${CMAKE_SOURCE_DIR}/include/DefaultService.h
+        ${CMAKE_SOURCE_DIR}/include/IMessageService.h
+        ${CMAKE_SOURCE_DIR}/include/INameService.h
+        ${CMAKE_SOURCE_DIR}/include/INodeBusService.h
+        ${CMAKE_SOURCE_DIR}/include/List.h
+        ${CMAKE_SOURCE_DIR}/include/Lock.h
+        ${CMAKE_SOURCE_DIR}/include/Log.h
+        ${CMAKE_SOURCE_DIR}/include/NodeBus.h
+        ${CMAKE_SOURCE_DIR}/include/NodeBusService.h
+        ${CMAKE_SOURCE_DIR}/include/NodeEntry.h
+        ${CMAKE_SOURCE_DIR}/include/NodeLooper.h
+        ${CMAKE_SOURCE_DIR}/include/NodeNetwork.h
+        ${CMAKE_SOURCE_DIR}/include/NodePort.h
+        ${CMAKE_SOURCE_DIR}/include/Packet.h
+        ${CMAKE_SOURCE_DIR}/include/Thread.h
+        ${CMAKE_SOURCE_DIR}/include/Types.h
+        ${CMAKE_SOURCE_DIR}/include/XMLParser.h
+        ${CMAKE_SOURCE_DIR}/include/XMLTypes.h
+        ${CMAKE_SOURCE_DIR}/include/DefaultNodeCallback.h
+        ${CMAKE_SOURCE_DIR}/include/Message.h
+        ${CMAKE_SOURCE_DIR}/include/NBus.h)
 
 add_executable(nodebus_client ${CLIENT_SOURCE_FILES} ${HEADER_FILES})
-add_library(nbus ${CLIENT_SOURCE_FILES} ${HEADER_FILES} src/NodeAdapter.cpp src/NodeAdapter.cpp.h)
+add_library(nbus ${CLIENT_SOURCE_FILES} ${HEADER_FILES})
 target_link_libraries(nodebus_client xml2)

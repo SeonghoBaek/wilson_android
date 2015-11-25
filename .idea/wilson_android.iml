@@ -3,6 +3,30 @@
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/CMakeLists.txt" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/include/Bridge.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/include/Config.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/include/Configure.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/include/DefaultNodeCallback.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/include/DefaultService.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/include/IMessageService.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/include/INameService.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/include/INodeBusService.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/include/List.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/include/Lock.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/include/Log.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/include/Message.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/include/NBus.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/include/NodeBus.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/include/NodeBusService.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/include/NodeEntry.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/include/NodeLooper.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/include/NodeNetwork.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/include/NodePort.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/include/Packet.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/include/Thread.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/include/Types.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/include/XMLParser.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/include/XMLTypes.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/node/bugreport/BugReport.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/node/bugreport/BugReport.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/node/bugreport/CMakeLists.txt" isTestSource="false" />
@@ -23,46 +47,22 @@
       <sourceFolder url="file://$MODULE_DIR$/node/ulogcat/USBLogcat.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/node/ulogcat/USBThread.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/node/ulogcat/USBThread.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/service/Bridge.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/service/CMakeLists.txt" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/service/include/Bridge.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/service/include/Config.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/service/include/Configure.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/service/include/DefaultNodeCallback.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/service/include/DefaultService.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/service/include/IMessageService.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/service/include/INameService.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/service/include/INodeBusService.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/service/include/List.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/service/include/Lock.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/service/include/Log.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/service/include/Message.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/service/include/NBus.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/service/include/NodeBus.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/service/include/NodeBusService.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/service/include/NodeEntry.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/service/include/NodeLooper.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/service/include/NodeNetwork.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/service/include/NodePort.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/service/include/Packet.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/service/include/Thread.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/service/include/Types.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/service/include/XMLParser.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/service/include/XMLTypes.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/service/src/Bridge.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/service/src/DefaultNodeCallback.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/service/src/DefaultService.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/service/src/INodeBusService.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/service/src/LocalBusInit.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/service/src/Lock.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/service/src/Log.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/service/src/NBus.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/service/src/NodeAdapter.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/service/src/NodeLooper.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/service/src/NodeNetwork.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/service/src/NodePort.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/service/src/Packet.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/service/src/Queue.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/service/src/XMLParser.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/service/DefaultNodeCallback.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/service/DefaultService.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/service/INodeBusService.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/service/LocalBusInit.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/service/Lock.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/service/Log.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/service/NBus.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/service/NodeAdapter.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/service/NodeLooper.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/service/NodeNetwork.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/service/NodePort.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/service/Packet.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/service/Queue.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/service/XMLParser.cpp" isTestSource="false" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
@@ -245,10 +245,10 @@
           <root url="file://$MODULE_DIR$/../../bionic/libc/include" />
           <root url="file://$MODULE_DIR$/../icu4c/common" />
           <root url="file://$MODULE_DIR$/../libxml2/include" />
+          <root url="file://$MODULE_DIR$/include" />
           <root url="file://$MODULE_DIR$/node/bugreport" />
           <root url="file://$MODULE_DIR$/node/rlogcat" />
           <root url="file://$MODULE_DIR$/node/ulogcat" />
-          <root url="file://$MODULE_DIR$/service/include" />
           <root url="file://$MODULE_DIR$/../../kernel/include" />
           <root url="file://$MODULE_DIR$/../../system/core/include" />
           <root url="file:///usr/include" />
@@ -430,23 +430,47 @@
           <root url="file://$MODULE_DIR$/../../bionic/libc/include" />
           <root url="file://$MODULE_DIR$/../icu4c/common" />
           <root url="file://$MODULE_DIR$/../libxml2/include" />
+          <root url="file://$MODULE_DIR$/include" />
           <root url="file://$MODULE_DIR$/node/bugreport" />
           <root url="file://$MODULE_DIR$/node/rlogcat" />
           <root url="file://$MODULE_DIR$/node/ulogcat" />
-          <root url="file://$MODULE_DIR$/service/include" />
           <root url="file://$MODULE_DIR$/../../kernel/include" />
           <root url="file://$MODULE_DIR$/../../system/core/include" />
           <root url="file:///usr/include" />
         </SOURCES>
         <excluded>
-          <root url="file://$MODULE_DIR$/node/bugreport/CMakeLists.txt" />
+          <root url="file://$MODULE_DIR$/include/NodeBusService.h" />
+          <root url="file://$MODULE_DIR$/include/NodeNetwork.h" />
+          <root url="file://$MODULE_DIR$/include/Log.h" />
+          <root url="file://$MODULE_DIR$/include/Bridge.h" />
+          <root url="file://$MODULE_DIR$/include/NodeBus.h" />
+          <root url="file://$MODULE_DIR$/include/List.h" />
+          <root url="file://$MODULE_DIR$/include/DefaultNodeCallback.h" />
+          <root url="file://$MODULE_DIR$/include/Message.h" />
+          <root url="file://$MODULE_DIR$/include/Configure.h" />
+          <root url="file://$MODULE_DIR$/include/XMLParser.h" />
+          <root url="file://$MODULE_DIR$/include/Config.h" />
+          <root url="file://$MODULE_DIR$/include/Packet.h" />
+          <root url="file://$MODULE_DIR$/include/NodePort.h" />
+          <root url="file://$MODULE_DIR$/include/DefaultService.h" />
+          <root url="file://$MODULE_DIR$/include/Lock.h" />
+          <root url="file://$MODULE_DIR$/include/NBus.h" />
+          <root url="file://$MODULE_DIR$/include/NodeEntry.h" />
+          <root url="file://$MODULE_DIR$/include/Types.h" />
+          <root url="file://$MODULE_DIR$/include/XMLTypes.h" />
+          <root url="file://$MODULE_DIR$/include/INameService.h" />
+          <root url="file://$MODULE_DIR$/include/IMessageService.h" />
+          <root url="file://$MODULE_DIR$/include/Thread.h" />
+          <root url="file://$MODULE_DIR$/include/INodeBusService.h" />
+          <root url="file://$MODULE_DIR$/include/NodeLooper.h" />
           <root url="file://$MODULE_DIR$/node/bugreport/BugReport.h" />
+          <root url="file://$MODULE_DIR$/node/bugreport/CMakeLists.txt" />
           <root url="file://$MODULE_DIR$/node/bugreport/BugReport.cpp" />
           <root url="file://$MODULE_DIR$/node/bugreport/ReportThread.h" />
           <root url="file://$MODULE_DIR$/node/bugreport/ReportThread.cpp" />
-          <root url="file://$MODULE_DIR$/node/rlogcat/LogCatThread.h" />
-          <root url="file://$MODULE_DIR$/node/rlogcat/CMakeLists.txt" />
           <root url="file://$MODULE_DIR$/node/rlogcat/RedirectLogCat.h" />
+          <root url="file://$MODULE_DIR$/node/rlogcat/CMakeLists.txt" />
+          <root url="file://$MODULE_DIR$/node/rlogcat/LogCatThread.h" />
           <root url="file://$MODULE_DIR$/node/rlogcat/LogCatThread.cpp" />
           <root url="file://$MODULE_DIR$/node/rlogcat/RedirectLogCat.cpp" />
           <root url="file://$MODULE_DIR$/node/ulogcat/USBLogcat.cpp" />
@@ -454,30 +478,6 @@
           <root url="file://$MODULE_DIR$/node/ulogcat/CMakeLists.txt" />
           <root url="file://$MODULE_DIR$/node/ulogcat/USBThread.cpp" />
           <root url="file://$MODULE_DIR$/node/ulogcat/USBThread.h" />
-          <root url="file://$MODULE_DIR$/service/include/DefaultNodeCallback.h" />
-          <root url="file://$MODULE_DIR$/service/include/NodeNetwork.h" />
-          <root url="file://$MODULE_DIR$/service/include/NodeBus.h" />
-          <root url="file://$MODULE_DIR$/service/include/Packet.h" />
-          <root url="file://$MODULE_DIR$/service/include/NodeLooper.h" />
-          <root url="file://$MODULE_DIR$/service/include/NodePort.h" />
-          <root url="file://$MODULE_DIR$/service/include/NodeEntry.h" />
-          <root url="file://$MODULE_DIR$/service/include/Thread.h" />
-          <root url="file://$MODULE_DIR$/service/include/Config.h" />
-          <root url="file://$MODULE_DIR$/service/include/List.h" />
-          <root url="file://$MODULE_DIR$/service/include/Lock.h" />
-          <root url="file://$MODULE_DIR$/service/include/NBus.h" />
-          <root url="file://$MODULE_DIR$/service/include/NodeBusService.h" />
-          <root url="file://$MODULE_DIR$/service/include/INameService.h" />
-          <root url="file://$MODULE_DIR$/service/include/Bridge.h" />
-          <root url="file://$MODULE_DIR$/service/include/XMLTypes.h" />
-          <root url="file://$MODULE_DIR$/service/include/DefaultService.h" />
-          <root url="file://$MODULE_DIR$/service/include/IMessageService.h" />
-          <root url="file://$MODULE_DIR$/service/include/INodeBusService.h" />
-          <root url="file://$MODULE_DIR$/service/include/Configure.h" />
-          <root url="file://$MODULE_DIR$/service/include/Log.h" />
-          <root url="file://$MODULE_DIR$/service/include/XMLParser.h" />
-          <root url="file://$MODULE_DIR$/service/include/Message.h" />
-          <root url="file://$MODULE_DIR$/service/include/Types.h" />
         </excluded>
       </library>
     </orderEntry>

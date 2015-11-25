@@ -20,6 +20,8 @@
 
 #define MICOM_NODE_NAME "node.micom"
 
+#define MICOM_SVC_NAME "svc.micom"
+
 #ifndef NULL
 #define NULL 0
 #endif

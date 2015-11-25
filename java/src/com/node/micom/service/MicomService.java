@@ -22,8 +22,8 @@ public class MicomService extends Service {
     private static final String TAG_NAME = "MICOM_SERVICE";
     public static final String INTENT_ACTION = "com.node.micom.service.MicomService";
 
-    public static final String MICOM_SERVICE_SERVER = "micom_svc_server";
-    public static final String MICOM_SERVICE_CLIENT = "micom_svc_client";  // Need to be shared by native daemon
+    public static final String MICOM_SERVICE_SERVER = "svc.micom";
+    public static final String MICOM_SERVICE_CLIENT = "node.micom";  // Need to be shared by native daemon
 
     private final int MAX_QUEUE_SIZE = 1024;
 
@@ -99,22 +99,6 @@ public class MicomService extends Service {
             mQueue.addCommand(msg);
         }
     }
-
-    /*
-    private class MicomDeamonTester extends Thread {
-        public void run() {
-            int i = 0;
-
-            while (i < 100) {
-                if ( mQueue.addCommand("Hello From MICOM " + i) == true ) i++;
-
-                try {
-                    Thread.sleep(100);
-                } catch (InterruptedException ie) {}
-            }
-        }
-    }
-    */
 
     @Override
     public IBinder onBind(Intent intent) {
