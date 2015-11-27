@@ -39,10 +39,15 @@ int INodeBusService::drop(const char *pNodeName)
 
 int INodeBusService::cast(const char *pNodeName, void *manifest, unsigned int length)
 {
+	return cast(pNodeName, manifest, length, LOCAL_MESSAGE);
+}
+
+int INodeBusService::cast(const char *pNodeName, void *manifest, unsigned int length, int msgType)
+{
 	_GOODNESS(pNodeName, -1);
 	_GOODNESS(manifest, -1);
 
-	if (NodeNetwork::sendNodeMessage(pNodeName, manifest, length, LOCAL_MESSAGE) < 0)
+	if (NodeNetwork::sendNodeMessage(pNodeName, manifest, length, msgType) < 0)
 	{
 		LOGE("Node Closed: Dropping %s", pNodeName);
 

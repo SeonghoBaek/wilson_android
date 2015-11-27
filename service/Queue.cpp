@@ -179,7 +179,7 @@ int NBUS_CMD_QUEUE::push(NBUS_CMD& item)
 
 NBUS_CMD* NBUS_CMD_QUEUE::pop()
 {
-	NBUS_CMD *item = new NBUS_CMD;
+	NBUS_CMD *item = NULL;
 
 	LOCK(mMutex)
 	{
@@ -189,6 +189,8 @@ NBUS_CMD* NBUS_CMD_QUEUE::pop()
 		}
 		else
 		{
+			item = new NBUS_CMD;
+
 			*item = mpQ[mBottom];
 
 			if (mpQ[mBottom].mpData)

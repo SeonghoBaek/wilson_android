@@ -1,10 +1,9 @@
-package com.ipc;
+package com.nodebus;
 
 /**
- * Created by major on 11/11/15.
+ * Created by major on 11/26/15.
  */
-public interface DomainMessageType {
-
+public interface NodeBusMessageType {
     int GLOBAL_MESSAGE = 0;
     int LOCAL_MESSAGE = 1;
     int CLIENT_MESSAGE = 2;

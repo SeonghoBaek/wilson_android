@@ -35,6 +35,8 @@ class INodeBusService
 
 		int cast(const char *nodeName, void *manifest, unsigned int length);
 
+		int cast(const char *nodeName, void *manifest, unsigned int length, int msgType);
+
 		int broadcast(void *manifest, unsigned int length);
 
 		int broadcast(void *manifest, unsigned int length, int type);

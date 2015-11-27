@@ -9,6 +9,7 @@
 #include "Log.h"
 #include "NodeBus.h"
 #include "Thread.h"
+#include "MicomBuffer.h"
 
 //using namespace android;
 
@@ -17,20 +18,22 @@
 class MicomThread : public Thread
 {
 private:
+
     char    mBuff[LOG_TEMP_BUFF_SIZE];
     int     mLogLength;
-    NodeAdapter *mpNodeAdapter;
+    MicomBuffer *mpMicomBuffer;
 
-public:
-    IMPLEMENT_THREAD(run())
-
-    MicomThread(NodeAdapter *pNodeAdapter);
+    bool sendData(int bytes);
+    int readFromMicom();
 
     bool run();
 
-    bool sendData(int bytes);
+public:
 
-    int readFromMicom();
+    IMPLEMENT_THREAD(run())
+
+    MicomThread(MicomBuffer *pMicomBuffer);
+
 };
 
 #endif

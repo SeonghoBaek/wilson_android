@@ -60,6 +60,8 @@ class Thread
 
 		Thread(bool d):detached(d), tid((NBUS_THREAD_ID_T)-1) {mThreadName[0] = '\0';}
 
+		void start() {startThread();}
+
 		void startThread()
 		{
             //LOGI("Create pthread\n");

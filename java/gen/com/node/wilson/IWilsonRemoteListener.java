@@ -2,7 +2,7 @@
 
 /*
  * This file is auto-generated.  DO NOT MODIFY.
- * Original file: /mnt/Wilson/major/android/android_avn_kitkat/external/wilson_android/java/src/com/node/wilson/IWilsonRemoteListener.aidl
+ * Original file: /mnt/wilson/major/android/android_avn_kitkat/external/wilson_android/java/src/com/node/wilson/IWilsonRemoteListener.aidl
  */
 package com.node.wilson;
 public interface IWilsonRemoteListener extends android.os.IInterface

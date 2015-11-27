@@ -102,12 +102,14 @@ mpOwner(pOwner)
     this->setThreadName((char *)"NodeAdapter::Dispatcher");
 }
 
-int NodeAdapter::Dispatcher::dispatch(const char* event)
+int NodeAdapter::Dispatcher::dispatch(const char* event) // Don't neet to look at event.
 {
     while (mpOwner->mQ.getSize())
     {
         NBUS_CMD* pItem = mpOwner->mQ.pop();
         bool	bDoNotCallback = FALSE;
+
+        if (pItem == NULL) continue;
 
         if (pItem->mType == SETUP_MESSAGE)
         {

@@ -12,11 +12,15 @@ set(NODE ${CMAKE_SOURCE_DIR}/node)
 
 set(MICOM_FILES
         ${NODE}/micom/MicomDaemon.cpp
-        ${NODE}/micom/MicomThread.cpp)
+        ${NODE}/micom/MicomThread.cpp
+        ${NODE}/micom/MicomBuffer.cpp
+        )
 
 set(MICOM_HEADER_FILES
         ${NODE}/micom/MicomThread.h
-        ${NODE}/micom/MicomDaemon.h)
+        ${NODE}/micom/MicomDaemon.h
+        ${NODE}/micom/MicomBuffer.h
+        )
 
 target_link_libraries(nbus xml2)
 

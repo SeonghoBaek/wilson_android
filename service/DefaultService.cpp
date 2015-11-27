@@ -392,6 +392,8 @@ void DefaultService::processMessage()
 	{
 		NBUS_CMD* pItem = this->mQ.pop();
 
+		if (pItem == NULL) continue;
+
 		LOGI("DefaultService Processor: %s", pItem->mpData);
 
 		if (!pItem->valid())
@@ -693,28 +695,43 @@ void DefaultService::processMessage()
 
 			delete pXmlParser;
 		}
-		else if (pItem->mType == GLOBAL_MESSAGE) // From network
-		{
-			//LOGI("Global Command Received: %s, %d", pItem->mpData, pItem->mLength);
+		else
+        {
+            switch (pItem->mType)
+            {
+                case GLOBAL_MESSAGE: // From Network
+                {
+                    //LOGI("Global Command Received: %s, %d", pItem->mpData, pItem->mLength);
 
-			if (strlen(this->getDefaultNode()))
-			{
-				NodeNetwork::sendNodeMessage(this->getDefaultNode(), pItem->mpData, pItem->mLength, GLOBAL_MESSAGE);
-			}
-			else
-			{
-				LOGW("DefaultNodeCallback Not Ready Yet");
-			}
-		}
-		else if (pItem->mType == BC_LOCAL_MESSAGE)
-		{
-			//LOGI("BroadCast Command Received: %s, %d", pItem->mpData, pItem->mLength);
-			this->broadcast(pItem->mpData, pItem->mLength, BC_LOCAL_MESSAGE);
-		}
-		else if (pItem->mType == BC_CLIENT_MESSAGE)
-		{
-			// Do not process at DefaultSerice. Only for GlobalService.
-		}
+                    if (strlen(this->getDefaultNode()))
+                    {
+                        NodeNetwork::sendNodeMessage(this->getDefaultNode(), pItem->mpData, pItem->mLength, GLOBAL_MESSAGE);
+                    }
+                    else
+                    {
+                        LOGW("DefaultNodeCallback Not Ready Yet");
+                    }
+                }
+                break;
+                case BC_LOCAL_MESSAGE:
+                {
+                    this->broadcast(pItem->mpData, pItem->mLength, pItem->mType);
+                }
+                break;
+                case BC_JSON_MESSAGE:
+                {
+                    this->broadcast(pItem->mpData, pItem->mLength, pItem->mType);
+                }
+                break;
+                case BC_MICOM_MESSAGE:
+                {
+                    this->broadcast(pItem->mpData, pItem->mLength, pItem->mType);
+                }
+                break;
+                default:
+                break;
+            }
+        }
 
 		delete pItem;
 	}

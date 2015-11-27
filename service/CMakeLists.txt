@@ -18,6 +18,7 @@ set(CLIENT_SOURCE_FILES
         ${NODEBUS}/NodeAdapter.cpp
         ${NODEBUS}/Packet.cpp
         ${NODEBUS}/Queue.cpp
+        ${NODEBUS}/Stack.cpp
         ${NODEBUS}/XMLParser.cpp
         ${NODEBUS}/Bridge.cpp
         ${NODEBUS}/DefaultNodeCallback.cpp

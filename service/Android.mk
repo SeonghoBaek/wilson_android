@@ -23,6 +23,7 @@ LOCAL_SRC_FILES := \
                     NodePort.cpp \
                     Packet.cpp \
                     Queue.cpp \
+                    Stack.cpp \
                     XMLParser.cpp \
                     DefaultNodeCallback.cpp \
                     NBus.cpp
@@ -61,6 +62,7 @@ LOCAL_SRC_FILES := \
                     NodeAdapter.cpp \
                     Packet.cpp \
                     Queue.cpp \
+                    Stack.cpp \
                     XMLParser.cpp \
                     NBus.cpp
 

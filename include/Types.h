@@ -109,14 +109,17 @@ enum
 	CLIENT_MESSAGE,
 	KILL_MESSAGE,
 	SETUP_MESSAGE,
-	BC_LOCAL_MESSAGE,
-	BC_CLIENT_MESSAGE,
+	BC_LOCAL_MESSAGE, // XML
+	BC_CLIENT_MESSAGE, // XML
 	BUS_MESSAGE,
 	DB_MESSAGE,
 	CUSTOM_MESSAGE,
-	JSON_MESSAGE,
-	MICOM_MESSAGE,
+	JSON_MESSAGE, // { "id":"","text":""}
+	BC_JSON_MESSAGE, // { "id":"","text":""}
+	MICOM_MESSAGE, // JSON
+	BC_MICOM_MESSAGE, // JSON
 	MICOM_REQUEST_MESSAGE,
+
 	NONE_MESSAGE
 };
 
@@ -207,6 +210,31 @@ class NBUS_CMD_QUEUE
 		void 		clear();
 		int 		push(NBUS_CMD& item);
 		NBUS_CMD*	pop();
+		int 		getSize();
+		int 		getQSize() { return this->mQSize;}
+};
+
+class NBUS_CMD_STACK
+{
+	private:
+		int mBottom;
+		int mTop;
+		int mQSize; // Total Q Size.
+		int mSize;  // Num in Q
+		bool mFull;
+
+		NBUS_CMD* mpQ;
+		Mutex_t mMutex;
+
+	public:
+		NBUS_CMD_STACK();
+		NBUS_CMD_STACK(int size);
+
+		virtual ~NBUS_CMD_STACK();
+		virtual void 		clear();
+		virtual int 		push(NBUS_CMD& item);
+		virtual NBUS_CMD*	pop();
+		virtual NBUS_CMD*	popclear();
 		int 		getSize();
 		int 		getQSize() { return this->mQSize;}
 };

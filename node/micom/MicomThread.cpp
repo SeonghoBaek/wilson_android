@@ -6,12 +6,13 @@
 #include <unistd.h>
 #include "Types.h"
 #include "MicomThread.h"
+#include "MicomDaemon.h"
 
-MicomThread::MicomThread(NodeAdapter *pNodeAdapter)
+MicomThread::MicomThread(MicomBuffer *pMicomBuffer)
 {
-    if (pNodeAdapter)
+    if (pMicomBuffer)
     {
-        this->mpNodeAdapter = pNodeAdapter;
+        this->mpMicomBuffer = pMicomBuffer;
     }
 }
 
@@ -49,9 +50,14 @@ int MicomThread::readFromMicom()
 
 bool MicomThread::sendData(int bytes)
 {
-    if (this->mpNodeAdapter)
+    if (this->mpMicomBuffer)
     {
-        this->mpNodeAdapter->addQueue(this->mBuff, bytes, MICOM_MESSAGE);
+        NBUS_CMD cmd(MICOM_PACKET_LENGTH);
+
+        cmd.mType = MICOM_MESSAGE;
+        memcpy(cmd.mpData, this->mBuff, MICOM_PACKET_LENGTH);
+
+        this->mpMicomBuffer->push(cmd);
     }
 
     return true;

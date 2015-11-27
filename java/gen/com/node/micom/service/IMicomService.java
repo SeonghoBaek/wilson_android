@@ -2,7 +2,7 @@
 
 /*
  * This file is auto-generated.  DO NOT MODIFY.
- * Original file: /mnt/Wilson/major/android/android_avn_kitkat/external/wilson_android/java/src/com/node/micom/service/IMicomService.aidl
+ * Original file: /mnt/wilson/major/android/android_avn_kitkat/external/wilson_android/java/src/com/node/micom/service/IMicomService.aidl
  */
 package com.node.micom.service;
 public interface IMicomService extends android.os.IInterface

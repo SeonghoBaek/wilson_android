@@ -11,7 +11,8 @@ LOCAL_C_INCLUDES := \
                  external/wilson_android/include
 
 LOCAL_SRC_FILES := MicomThread.cpp \
-                   MicomDaemon.cpp
+                   MicomDaemon.cpp \
+                   MicomBuffer.cpp
 
 LOCAL_SHARED_LIBRARIES := \
             libcutils \

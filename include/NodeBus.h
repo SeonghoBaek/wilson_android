@@ -130,6 +130,8 @@ class NodeAdapter
 
 		virtual ~NodeAdapter();
 
+		void start() { run(); }
+
 		void run();
 
 		void setNodeName(const char *pNodeName);
