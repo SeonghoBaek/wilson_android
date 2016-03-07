@@ -7,7 +7,7 @@
 
 #include <stdio.h>
 #include <string.h>
-#include "Config.h"
+#include "Configure.h"
 #include "Bridge.h"
 #include "NBus.h"
 

@@ -28,7 +28,6 @@ set(CLIENT_SOURCE_FILES
 set(HEADER_FILES
         ${CMAKE_SOURCE_DIR}/include/Bridge.h
         ${CMAKE_SOURCE_DIR}/include/Configure.h
-        ${CMAKE_SOURCE_DIR}/include/Config.h
         ${CMAKE_SOURCE_DIR}/include/DefaultService.h
         ${CMAKE_SOURCE_DIR}/include/IMessageService.h
         ${CMAKE_SOURCE_DIR}/include/INameService.h

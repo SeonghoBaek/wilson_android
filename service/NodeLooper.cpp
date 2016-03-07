@@ -60,13 +60,13 @@ int NodeLooper::timer()
 
 	fds[0].fd = this->mFd[0];
 	fds[0].events = POLLIN;
-	fds[0].revents = 0;
 
 	int mili = -1;
 
 	for (;;)
 	{
 		mili = this->mTimeOut;
+		fds[0].revents = 0;
 
 		poll(fds, 1, mili);
 
@@ -169,7 +169,15 @@ int NodeLooper::wait(int mili)
 		}
 		else
 		{
-			break;
+			if (this->mpImpl)
+			{
+				this->mpImpl->looperCallback(LOOPER_TIMEOUT);
+			}
+
+			if (this->mUser_cb)
+			{
+				this->mUser_cb(LOOPER_TIMEOUT);
+			}
 		}
 	}
 

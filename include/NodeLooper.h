@@ -31,6 +31,7 @@ class NodeLooper
 	private:
 		NodeLooperCallback_t mUser_cb;
 		INodeLooper* mpImpl;
+
 		int mFd[2];
 		int mTimeOut;
 

@@ -4,6 +4,8 @@ include $(CLEAR_VARS)
 
 LOCAL_MODULE_TAGS := optional
 
+LOCAL_CFLAGS += -Wno-reorder
+
 LOCAL_C_INCLUDES := \
                  $(LOCAL_PATH) \
                  external/wilson_android/include \

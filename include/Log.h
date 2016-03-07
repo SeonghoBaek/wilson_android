@@ -36,6 +36,14 @@ void NBUS_PrintMessage(int type, const char *func, int line, const char *fmt, ..
 #define _LOG_TAG "wilson"
 #endif
 
+#if 1
+#define  LOGE(...)
+#define  LOGW(...)
+#define  LOGI(...)
+#define  LOGD(...)
+#define  LOGV(...)
+
+#else
 #define  LOGE(...) \
            __android_log_print(ANDROID_LOG_ERROR,_LOG_TAG,__VA_ARGS__)
 
@@ -50,4 +58,5 @@ void NBUS_PrintMessage(int type, const char *func, int line, const char *fmt, ..
 
 #define  LOGV(...) \
            __android_log_print(ANDROID_LOG_VERBOSE,_LOG_TAG,__VA_ARGS__)
+#endif
 #endif

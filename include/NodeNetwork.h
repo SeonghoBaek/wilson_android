@@ -20,6 +20,8 @@ class NodeNetwork
 
 		static int sendNodeMessage(const char *pNodeName, const void *data, unsigned int length, int type);
 
+		static int sendNodeMessage(int* s, const char *pNodeName, const void *data, unsigned int length, int type);
+
 		static int connectGlobal(const char *address, int port);
 
 		static int sendToSocket(int sd, const void* buffer, size_t bufferSize);

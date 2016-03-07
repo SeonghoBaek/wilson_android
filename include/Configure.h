@@ -42,13 +42,9 @@
 
 #define SERVICE_NAME_LENGTH 64
 
-#define DEFAULT_GLOBAL_SERVICE_NAME DOMAIN_PREFIX "defaultservice.service.global"
+#define LOCAL_ROUTER_NAME  DOMAIN_PREFIX "nodebus.local.router.defaultrouter"
 
-#define DEFAULT_LOCAL_SERVICE_NAME DOMAIN_PREFIX "defaultservice.service.local"
-
-#define LOCAL_ROUTER_NAME  DOMAIN_PREFIX "defaultrouter.router.local"
-
-#define DEFAULT_NODE_NAME   DOMAIN_PREFIX "default.node.local"
+#define DEFAULT_NODE_NAME   DOMAIN_PREFIX "nodebus.local.node.default"
 
 #define BIGNODE_NODE_NAME DOMAIN_PREFIX "bignode.node"
 
@@ -78,4 +74,13 @@
 
 #define LOG_SEGMENT_SIZE		10
 
+#define NBUS_BUFF_SIZE 		2048
+
+#define DEFAULT_GLOBAL_SERVICE_NAME DOMAIN_PREFIX "nodebus.global.service.defaultservice"
+
+#define DEFAULT_LOCAL_SERVICE_NAME DOMAIN_PREFIX "nodebus.local.service.defaultservice"
+
+#define MICOM_NODE_NAME "node.micom"
+
+#define MICOM_SVC_NAME "svc.micom"
 #endif

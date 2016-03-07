@@ -45,6 +45,8 @@ class INodeBusService
 
 		int join(NodeAdapter *pNodeAdapter);
 
+		int exist(const char *pNodeName);
+
 		char* getNodeList(const char* pResultReceiver);
     
         int setDefaultNode(const char *nodeName);

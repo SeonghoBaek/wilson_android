@@ -331,6 +331,144 @@ int NodeNetwork::setupLocalNode(const char* names, INode* pINode)
 
 }
 
+int NodeNetwork::sendNodeMessage(int* s, const char *pNodeName, const void *data, unsigned int length, int type)
+{
+	int localSocket = *s;
+
+	struct sockaddr_un address;
+	const size_t nameLength = strlen(pNodeName);
+
+	if (localSocket == -1)
+    {
+        if ((localSocket = socket(PF_LOCAL, SOCK_STREAM, 0)) < 0)
+        {
+            LOGE("Local Socket Creation Error: %s\n", strerror(errno));
+
+            return -1;
+        }
+
+        size_t pathLength = nameLength;
+
+        bool abstractNamespace = ('/' != pNodeName[0]);
+
+        if (abstractNamespace)
+        {
+            pathLength++;
+        }
+
+        if (pathLength > sizeof(address.sun_path))
+        {
+            LOGE("Socket Path Too Long\n");
+            close(localSocket);
+
+            return -1;
+        }
+        else
+        {
+            memset(&address, 0, sizeof(address));
+
+            address.sun_family = PF_LOCAL;
+
+            char *sunPath = address.sun_path;
+
+            // First byte must be zero to use the abstract namespace
+            if (abstractNamespace)
+            {
+                *sunPath++ = 0;
+            }
+
+            strcpy(sunPath, pNodeName);
+
+#if defined(MAC_OS_X)
+            address.sun_len = sizeof(address);
+            socklen_t addressLength = (socklen_t)SUN_LEN(&address);
+#else
+            socklen_t addressLength = (offsetof(struct sockaddr_un, sun_path)) + (socklen_t) pathLength;
+#endif
+            if (connect(localSocket, (struct sockaddr *) &address, addressLength) < 0)
+            {
+                //LOGE("Local Socket Connect Error\n");
+                close(localSocket);
+
+                return -1;
+            }
+        }
+
+        *s = localSocket;
+    }
+
+	int sent = 0;
+
+	sent = (int)write(localSocket, (void*)&type, sizeof(type));
+
+	if (sent <= 0)
+	{
+		strerror(errno);
+		close(localSocket);
+		*s = -1;
+
+		return -1;
+	}
+
+	if (type == KILL_MESSAGE)
+	{
+		close(localSocket);
+		*s = -1;
+
+		return 0;
+	}
+
+	sent = (int)write(localSocket, (void*)&length, sizeof(length));
+
+	if (sent <= 0)
+	{
+		strerror(errno);
+		close(localSocket);
+		*s = -1;
+
+		return -1;
+	}
+
+	int nrPages = length / SOCK_PAGE_SIZE + 1;
+	int sizeToSend = 0;
+
+	for (int i = 0; i < nrPages; i++)
+	{
+		if (length < SOCK_PAGE_SIZE)
+		{
+			sizeToSend = length;
+		}
+		else
+		{
+			sizeToSend = SOCK_PAGE_SIZE;
+		}
+
+		sent = 0;
+
+		do
+		{
+			int w = (int)write(localSocket, (char *)data + sent + i*SOCK_PAGE_SIZE, sizeToSend);
+
+			if (w <= 0)
+			{
+				strerror(errno);
+				close(localSocket);
+				*s = -1;
+
+				return -1;
+			}
+
+			sent += w;
+			sizeToSend -= w;
+		}
+		while(sizeToSend);
+
+		length -= sent;
+	}
+
+	return 0;
+}
+
 int NodeNetwork::sendNodeMessage(const char *pNodeName, const void *data, unsigned int length, int type)
 {
 	int localSocket = -1;
@@ -483,7 +621,7 @@ int NodeNetwork::connectGlobal(const char *address, int port)
     
 	if (connect(sock, (struct sockaddr*)&server_addr, sizeof(server_addr)) < 0)
 	{
-        LOGE("server connect error: %s :%d\n", address, port);
+        LOGE("server connect error: %s :%d, %s\n", address, port, strerror(errno));
 		return -1;
 	}
 
